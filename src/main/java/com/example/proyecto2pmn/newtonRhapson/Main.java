@@ -1,7 +1,6 @@
 package com.example.proyecto2pmn.newtonRhapson;
 
 import java.util.Scanner;
-import com.example.proyecto2pmn.newtonRhapson.*;
 public class Main
 {
     public static void main(String[] args)

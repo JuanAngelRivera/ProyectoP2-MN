@@ -18,7 +18,8 @@ public class Procedimeinto
         derivar.derivar();
         this.error = 1.0;
     }
-    public String obtenerFuncion(){
+    public String obtenerFuncion()
+    {
         return this.fun;
     }
     public String obtenerDerivada()

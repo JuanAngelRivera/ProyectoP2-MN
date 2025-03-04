@@ -2,7 +2,6 @@ module com.example.proyecto2pmn
 {
     requires javafx.controls;
     requires javafx.fxml;
-    requires jmatio;
     requires java.xml;
     requires jep;
     requires djep;
