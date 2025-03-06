@@ -8,9 +8,11 @@
 - [ ] Algoritmo Regla Falsa
 - [x] Algoritmo Newton-Rhapson
 - [ ] Algoritmo Gauss-Jordan
+- [ ] Algoritmo Gauss-Seidel
 - [ ] Adaptacion Regla Falsa
 - [ ] Adaptacion Newton-Rhapson
 - [ ] Adaptacion Gauss-Jordan
+- [ ] Adaptacion Gauss-Seidel
 - [ ] Generar interfaces
 - [ ] Crear tablas (ObservableList)
 - [ ] Exportar archivo ejecutable
