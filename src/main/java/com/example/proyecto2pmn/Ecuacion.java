@@ -7,14 +7,14 @@ import org.nfunk.jep.JEP;
 import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Ecuacion
 {
     public String funcion, titulo = "Newton-Rhapson";
     private JEP jep;
     private Node funcionTraducida;
-    private List <String> parametros;
+    public ArrayList<String> parametros;
 
     private JEP configJep()
     {
@@ -90,5 +90,7 @@ public class Ecuacion
     Ecuacion()
     {
         this.jep = configJep();
+        parametros = new ArrayList<String>();
+        parametros.add("HOLA" , "Xi", "X0");
     }
 }
