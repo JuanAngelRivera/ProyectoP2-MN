@@ -1,6 +1,5 @@
 package com.example.proyecto2pmn;
 
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
@@ -35,6 +34,7 @@ public class Interfaz extends Stage
             metodo.añadirFuncion(textFieldEcuacion.getText());
             grafica = metodo.graficarFuncion(-10, 10, .3);
             vbox.getChildren().add(grafica);
+            obtenerParametros(metodo);
         });
     }
 
@@ -45,12 +45,15 @@ public class Interfaz extends Stage
         for (String parametro : parametros)
         {
             Label label = new Label(parametro);
-            vbox.getChildren().add(label);
+            TextField tf = new TextField("Valor para " + parametro);
+            HBox hbox = new HBox(label, tf);
+            vbox.getChildren().add(hbox);
         }
         Button button = new Button("Usar parametros");
         button.setOnAction(e -> {
             System.out.println("SE TENDRIA QUE ABRIR EL ARCHIVO CORRESPONDIENTE");
         });
+        vbox.getChildren().add(button);
     }
 
     public Interfaz(Ecuacion metodo)
