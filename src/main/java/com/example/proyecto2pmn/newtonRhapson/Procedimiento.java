@@ -38,6 +38,7 @@ public class Procedimiento {
         int n = 1;
         lista.clear();
 
+
         while (this.error > 0.0001) {
             this.fx = redondear(derivar.evaluarfuncionOriginal(xi));
             this.fxp = redondear(derivar.evaluarfuncionDerivada(xi));

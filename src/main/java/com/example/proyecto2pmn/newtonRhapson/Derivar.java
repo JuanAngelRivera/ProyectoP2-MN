@@ -74,6 +74,7 @@ public class Derivar
             if (result instanceof org.nfunk.jep.type.Complex)
                 return ((org.nfunk.jep.type.Complex) result).re();
 
+
             if (result instanceof Number)
 
                 return ((Number) result).doubleValue();
