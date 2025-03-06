@@ -1,7 +1,6 @@
 package com.example.proyecto2pmn;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -15,7 +14,7 @@ public class HelloApplication extends Application
 {
     private MenuBar menu;
     private Menu ecuaciones, abiertos, cerrados;
-    private MenuItem reglaFalsa, newtonRhapson, gaussJordan;
+    private MenuItem reglaFalsa, newtonRhapson, gaussJordan, gaussSeidel;
     private VBox vbox;
     private Scene escena;
 
@@ -24,9 +23,10 @@ public class HelloApplication extends Application
         reglaFalsa = new MenuItem("Regla Falsa");
         newtonRhapson = new MenuItem("Newton Rhapson");
         gaussJordan = new MenuItem("Gauss Jordan");
+        gaussSeidel = new MenuItem("Gauss Seidel");
 
         abiertos = new Menu("Abiertos");
-        abiertos.getItems().addAll(newtonRhapson, gaussJordan);
+        abiertos.getItems().addAll(newtonRhapson, gaussJordan, gaussSeidel);
         cerrados = new Menu("Cerrados");
         cerrados.getItems().addAll(reglaFalsa);
 
