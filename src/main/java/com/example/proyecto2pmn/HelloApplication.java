@@ -13,7 +13,7 @@ import java.io.IOException;
 public class HelloApplication extends Application
 {
     private MenuBar menu;
-    private Menu ecuaciones, abiertos, cerrados;
+    private Menu ecuaciones, abiertos, cerrados, lineales;
     private MenuItem reglaFalsa, newtonRhapson, gaussJordan, gaussSeidel;
     private VBox vbox;
     private Scene escena;
@@ -26,13 +26,15 @@ public class HelloApplication extends Application
         gaussSeidel = new MenuItem("Gauss Seidel");
 
         abiertos = new Menu("Abiertos");
-        abiertos.getItems().addAll(newtonRhapson, gaussJordan, gaussSeidel);
+        abiertos.getItems().addAll(newtonRhapson);
         cerrados = new Menu("Cerrados");
         cerrados.getItems().addAll(reglaFalsa);
+        lineales = new Menu("Lineales");
+        lineales.getItems().addAll(gaussJordan, gaussSeidel);
 
         ecuaciones = new Menu("Ecuaciones");
 
-        ecuaciones.getItems().addAll(abiertos, cerrados);
+        ecuaciones.getItems().addAll(abiertos, cerrados, lineales);
         menu = new MenuBar();
         menu.getMenus().addAll(ecuaciones);
         vbox = new VBox(menu);

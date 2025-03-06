@@ -7,11 +7,14 @@ import org.nfunk.jep.JEP;
 import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
 
+import java.util.List;
+
 public class Ecuacion
 {
     public String funcion;
     private JEP jep;
     private Node funcionTraducida;
+    private List <String> parametros;
 
     private JEP configJep()
     {
