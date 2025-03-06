@@ -1,6 +1,6 @@
 package com.example.proyecto2pmn.newtonRhapson;
 
-public class Procedimeinto
+public class Algoritmo
 {
     private String fun;
     private double xi;
@@ -10,7 +10,7 @@ public class Procedimeinto
     private double error;
     Derivar derivar = new Derivar();
 
-    public Procedimeinto(String fun, double x)
+    public Algoritmo(String fun, double x)
     {
         this.fun = fun;
         this.xi = decimales(x);

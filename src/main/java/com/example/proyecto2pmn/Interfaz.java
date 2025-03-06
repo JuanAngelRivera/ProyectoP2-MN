@@ -50,9 +50,7 @@ public class Interfaz extends Stage
             vbox.getChildren().add(hbox);
         }
         Button button = new Button("Usar parametros");
-        button.setOnAction(e -> {
-            System.out.println("SE TENDRIA QUE ABRIR EL ARCHIVO CORRESPONDIENTE");
-        });
+        button.setOnAction(e -> new Tabla(metodo));
         vbox.getChildren().add(button);
     }
 

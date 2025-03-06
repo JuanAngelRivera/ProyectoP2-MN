@@ -16,6 +16,7 @@ public class Ecuacion
     private JEP jep;
     private Node funcionTraducida;
     public ArrayList<String> parametros;
+    public ArrayList<String> columnasTabla;
 
     private JEP configJep()
     {
@@ -91,6 +92,7 @@ public class Ecuacion
     Ecuacion()
     {
         this.jep = configJep();
-        parametros = new ArrayList<String>(Arrays.asList("x", "y", "z"));
+        parametros = new ArrayList<String>(Arrays.asList("xi"));
+        columnasTabla = new ArrayList<String>(Arrays.asList("No.", "xi", "f(xi)", "f'(xi)", "xi+1", "error"));
     }
 }

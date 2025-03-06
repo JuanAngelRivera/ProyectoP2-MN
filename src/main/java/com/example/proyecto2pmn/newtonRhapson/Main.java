@@ -10,7 +10,7 @@ public class Main
         String line = in.nextLine();
         System.out.println("Ingresa el valor de donde le gustaria empezar");
         double dond = in.nextDouble();
-        Procedimeinto p = new Procedimeinto(line, dond);
+        Algoritmo p = new Algoritmo(line, dond);
         System.out.println("La funcion original es: " + p.obtenerFuncion());
         System.out.println("La funcion derivada es: " + p.obtenerDerivada());
 
