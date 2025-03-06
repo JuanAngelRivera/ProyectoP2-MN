@@ -21,9 +21,16 @@ public class HelloApplication extends Application
     public void create_ui()
     {
         reglaFalsa = new MenuItem("Regla Falsa");
+        reglaFalsa.setOnAction(e -> new Interfaz(new Ecuacion()));
+
         newtonRhapson = new MenuItem("Newton Rhapson");
+        newtonRhapson.setOnAction(e -> new Interfaz(new Ecuacion()));
+
         gaussJordan = new MenuItem("Gauss Jordan");
+        gaussJordan.setOnAction(e -> new Interfaz(new Ecuacion()));
+
         gaussSeidel = new MenuItem("Gauss Seidel");
+        gaussSeidel.setOnAction(e -> new Interfaz(new Ecuacion()));
 
         abiertos = new Menu("Abiertos");
         abiertos.getItems().addAll(newtonRhapson);

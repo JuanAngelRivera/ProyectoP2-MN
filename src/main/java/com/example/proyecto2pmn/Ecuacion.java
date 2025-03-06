@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Ecuacion
 {
-    public String funcion;
+    public String funcion, titulo = "Newton-Rhapson";
     private JEP jep;
     private Node funcionTraducida;
     private List <String> parametros;
@@ -44,7 +44,12 @@ public class Ecuacion
         try
         {
             jep.setVarValue("x", x);
-            return (double)(jep.evaluate(funcionTraducida));
+            Object resultado = jep.evaluate(funcionTraducida);
+
+            if (resultado instanceof Number)
+                return ((Number) resultado).doubleValue();
+            else
+                return Double.NaN;
         }
         catch(Exception e)
         {
@@ -76,10 +81,14 @@ public class Ecuacion
         return lineChart;
     }
 
-    Ecuacion(String funcion)
+    void añadirFuncion(String funcion)
     {
         this.funcion = funcion;
-        this.jep = configJep();
         traducirFuncion();
+    }
+
+    Ecuacion()
+    {
+        this.jep = configJep();
     }
 }
