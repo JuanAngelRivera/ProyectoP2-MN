@@ -8,6 +8,7 @@ import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Ecuacion
 {
@@ -15,6 +16,7 @@ public class Ecuacion
     private JEP jep;
     private Node funcionTraducida;
     public ArrayList<String> parametros;
+    public ArrayList<String> columnasTabla;
 
     private JEP configJep()
     {
@@ -90,7 +92,7 @@ public class Ecuacion
     Ecuacion()
     {
         this.jep = configJep();
-        parametros = new ArrayList<String>();
-        parametros.add("HOLA" , "Xi", "X0");
+        parametros = new ArrayList<String>(Arrays.asList("xi"));
+        columnasTabla = new ArrayList<String>(Arrays.asList("No.", "xi", "f(xi)", "f'(xi)", "xi+1", "error"));
     }
 }
