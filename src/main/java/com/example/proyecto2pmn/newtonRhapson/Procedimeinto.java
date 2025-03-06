@@ -9,6 +9,7 @@ public class Procedimeinto
     private double fxp;
     private double error;
     Derivar derivar = new Derivar();
+
     public Procedimeinto(String fun, double x)
     {
         this.fun = fun;
