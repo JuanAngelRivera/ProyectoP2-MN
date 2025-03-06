@@ -1,19 +1,39 @@
 package com.example.proyecto2pmn.newtonRhapson;
 
-import java.util.Scanner;
-public class Main
-{
-    public static void main(String[] args)
-    {
-        Scanner in = new Scanner(System.in);
-        System.out.println("Ingresa la funcion a derivar");
-        String line = in.nextLine();
-        System.out.println("Ingresa el valor de donde le gustaria empezar");
-        double dond = in.nextDouble();
-        Procedimeinto p = new Procedimeinto(line, dond);
-        System.out.println("La funcion original es: " + p.obtenerFuncion());
-        System.out.println("La funcion derivada es: " + p.obtenerDerivada());
+import javafx.application.Application;
+import javafx.stage.Stage;
 
-        System.out.println(p.tabla());
+import java.util.Scanner;
+
+public class Main extends Application {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("Ingresa la función a derivar:");
+        String funcion = in.nextLine();
+
+        System.out.println("Ingresa el valor inicial:");
+        double x0 = in.nextDouble();
+
+        Procedimiento procedimiento = new Procedimiento(funcion, x0);
+        System.out.println("Función original: " + procedimiento.obtenerFuncion());
+        System.out.println("Función derivada: " + procedimiento.obtenerDerivada());
+
+
+
+        TablaResultados.setDatos(procedimiento.calcularTabla(), procedimiento.obtenerRaiz());
+
+
+        launch();
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        TablaResultados tablaResultados = new TablaResultados();
+        try {
+            tablaResultados.start(primaryStage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
