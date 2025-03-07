@@ -1,5 +1,7 @@
 package com.example.proyecto2pmn;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -9,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Tabla extends Stage
 {
@@ -17,6 +20,7 @@ public class Tabla extends Stage
     VBox vbox;
     Scene escena;
     TableView <String> tabla;
+    ObservableList<Fila> datos;
 
     public void crearUI()
     {
@@ -24,7 +28,6 @@ public class Tabla extends Stage
         tabla = new TableView<>();
         vbox = new VBox(titulo, tabla);
         escena = new Scene(vbox);
-        configurarTabla();
     }
 
     private void configurarTabla()
@@ -38,10 +41,23 @@ public class Tabla extends Stage
         }
     }
 
+    public void cargarTabla(ArrayList<String[]> listaIteraciones)
+    {
+        List<Fila> filas = new ArrayList<>();
+        for (int i = 0; i < listaIteraciones.size(); i++)
+        {
+            filas.add(new Fila(listaIteraciones.get(i)));
+        }
+        datos.setAll(filas);
+    }
+
     Tabla(Ecuacion metodo)
     {
         this.metodo = metodo;
+        datos = FXCollections.observableArrayList();
         crearUI();
+        configurarTabla();
+        cargarTabla(metodo.listaIteraciones);
         this.setTitle("Tabla del método " + metodo.titulo);
         this.setScene(escena);
         this.show();

@@ -15,8 +15,8 @@ public class Ecuacion
     public String funcion, titulo = "Newton-Rhapson";
     private JEP jep;
     private Node funcionTraducida;
-    public ArrayList<String> parametros;
-    public ArrayList<String> columnasTabla;
+    public ArrayList<String> parametros, columnasTabla;
+    public ArrayList<String[]> listaIteraciones;
 
     private JEP configJep()
     {
@@ -41,7 +41,7 @@ public class Ecuacion
         }
     }
 
-    private double evaluarFuncion(double x)
+    public double evaluarFuncion(double x)
     {
         try
         {
@@ -83,10 +83,21 @@ public class Ecuacion
         return lineChart;
     }
 
-    void añadirFuncion(String funcion)
+    public void añadirFuncion(String funcion)
     {
         this.funcion = funcion;
         traducirFuncion();
+    }
+
+    public void titulo(String titulo)
+    {
+        this.titulo = titulo;
+    }
+
+    public void parametros(String [] campos)
+    {
+        parametros = new ArrayList<>();
+        parametros.addAll(Arrays.asList(campos));
     }
 
     Ecuacion()
