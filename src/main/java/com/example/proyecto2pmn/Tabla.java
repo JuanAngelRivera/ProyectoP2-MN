@@ -32,10 +32,11 @@ public class Tabla extends Stage
 
     private void configurarTabla()
     {
-        for (String column : metodo.columnasTabla)
+        for (int i = 0; i < metodo.columnasTabla.size(); i++)
         {
-            TableColumn<Fila, String> columna = new TableColumn<>(column);
-            columna.setCellValueFactory(new PropertyValueFactory<>(column));
+            TableColumn<Fila, String> columna = new TableColumn<>(metodo.columnasTabla.get(i));
+            final int index = i;
+            columna.setCellValueFactory(cellData -> cellData.getValue().obtenerValores(index));
             tabla.getColumns().add(columna);
         }
     }
@@ -45,10 +46,11 @@ public class Tabla extends Stage
         List<Fila> filas = new ArrayList<>();
         for (int i = 0; i < listaIteraciones.size(); i++)
         {
-            filas.add(new Fila(listaIteraciones.get(i)));
+            filas.add(new Fila(List.of(listaIteraciones.get(i))));
         }
         datos.setAll(filas);
         tabla.setItems(datos);
+        vbox.getChildren().add(new Label("Raíz aproximada con error <= 0.01%: " + metodo.obtenerRaiz()));
     }
 
     Tabla(Ecuacion metodo)

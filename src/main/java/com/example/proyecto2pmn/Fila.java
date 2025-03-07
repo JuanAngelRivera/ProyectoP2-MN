@@ -10,12 +10,12 @@ public class Fila
 {
     private final List<SimpleStringProperty> valores;
 
-    Fila(String[] valores)
+    Fila(List <String> valores)
     {
-        this.valores = new ArrayList<>();
-        for (int i = 0; i < valores.length; i++)
-        {
-            this.valores.add(new SimpleStringProperty(valores[i]));
-        }
+        this.valores = valores.stream().map(SimpleStringProperty::new).toList();
+    }
+    public SimpleStringProperty obtenerValores(int index)
+    {
+        return valores.get(index);
     }
 }
