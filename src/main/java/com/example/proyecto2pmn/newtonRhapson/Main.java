@@ -15,13 +15,13 @@ public class Main extends Application {
         System.out.println("Ingresa el valor inicial:");
         double x0 = in.nextDouble();
 
-        Procedimiento procedimiento = new Procedimiento(funcion, x0);
-        System.out.println("Función original: " + procedimiento.obtenerFuncion());
-        System.out.println("Función derivada: " + procedimiento.obtenerDerivada());
-
-
-
-        TablaResultados.setDatos(procedimiento.calcularTabla(), procedimiento.obtenerRaiz());
+//        //Algoritmo algoritmo = new Algoritmo(new );
+//        System.out.println("Función original: " + algoritmo.obtenerFuncion());
+//        System.out.println("Función derivada: " + algoritmo.obtenerDerivada());
+//
+//
+//
+//        TablaResultados.setDatos(algoritmo.calcularTabla(), algoritmo.obtenerRaiz());
 
 
 

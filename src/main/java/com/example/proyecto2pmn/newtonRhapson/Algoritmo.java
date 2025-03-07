@@ -1,12 +1,14 @@
 package com.example.proyecto2pmn.newtonRhapson;
 
-
+import com.example.proyecto2pmn.Ecuacion;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class Procedimiento {
+public class Algoritmo extends Ecuacion
+{
     private String fun;
     private double xi;
     private double xi1;
@@ -14,15 +16,14 @@ public class Procedimiento {
     private double fxp;
     private double error;
     private Derivar derivar = new Derivar();
-    private List<Object[]> lista = new ArrayList<>();
-
     private static final DecimalFormat df = new DecimalFormat("#.######");
 
-    public Procedimiento(String fun, double x) {
-        this.fun = fun;
-        this.xi = redondear(x);
-        derivar.setFun(this.fun);
-        derivar.derivar();
+    public Algoritmo()
+    {
+        super();
+        super.parametros(new String[]{"xi"});
+        super.columnasTabla = new ArrayList<String>(Arrays.asList("No.", "xi", "f(xi)", "fp(xi)", "xi1", "error"));
+        super.titulo("Newton-Rhapson");
         this.error = 1.0;
     }
 
@@ -34,31 +35,37 @@ public class Procedimiento {
         return derivar.getfun();
     }
 
-    public List<Object[]> calcularTabla() {
+    public void calcularIteraciones()
+    {
         int n = 1;
-        lista.clear();
+        super.listaIteraciones = new ArrayList<>();
 
-
-        while (this.error > 0.0001) {
+        while (this.error > 0.0001)
+        {
             this.fx = redondear(derivar.evaluarfuncionOriginal(xi));
             this.fxp = redondear(derivar.evaluarfuncionDerivada(xi));
             this.xi1 = redondear(this.xi - (fx / fxp));
             this.error = Math.abs(xi1 - this.xi) / Math.abs(xi1);
             double errorPorcentaje = redondear(this.error * 100);
 
-            lista.add(new Object[]{n, this.xi, this.fx, this.fxp, this.xi1, errorPorcentaje+" %"});
+            String[] datos = new String[]{n + "", this.xi + "", this.fx + "", this.fxp + "", this.xi1 + "", errorPorcentaje + "%"};
+
+            listaIteraciones.add(datos);
+            //listaIteraciones.add(new Object[]{n, this.xi, this.fx, this.fxp, this.xi1, errorPorcentaje+" %"});
             this.xi = this.xi1;
             n++;
         }
-
-        return lista;
     }
 
-    private double redondear(double x) {
-        return Double.parseDouble(String.format("%.6f", x));
+    public void valoresParametro(Double[] valores)
+    {
+        this.xi = valores[0];
+        derivar.setFun(super.funcion);
+        derivar.derivar();
     }
 
-    public double obtenerRaiz() {
+    public double obtenerRaiz()
+    {
         return this.xi;
     }
 }

@@ -10,7 +10,7 @@ import org.nfunk.jep.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Ecuacion
+public abstract class Ecuacion
 {
     public String funcion, titulo = "Newton-Rhapson";
     private JEP jep;
@@ -100,10 +100,20 @@ public class Ecuacion
         parametros.addAll(Arrays.asList(campos));
     }
 
-    Ecuacion()
+    public double redondear(double x)
+    {
+        return Double.parseDouble(String.format("%.6f", x));
+    }
+
+    public abstract double obtenerRaiz();
+
+    public abstract void valoresParametro(Double[] parametros);
+
+    public abstract void calcularIteraciones();
+
+    protected Ecuacion()
     {
         this.jep = configJep();
-        parametros = new ArrayList<String>(Arrays.asList("xi"));
-        columnasTabla = new ArrayList<String>(Arrays.asList("No.", "xi", "f(xi)", "f'(xi)", "xi+1", "error"));
+        parametros = new ArrayList<String>(Arrays.asList(""));
     }
 }

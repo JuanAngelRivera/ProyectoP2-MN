@@ -19,7 +19,7 @@ public class Tabla extends Stage
     private Ecuacion metodo;
     VBox vbox;
     Scene escena;
-    TableView <String> tabla;
+    TableView<Fila> tabla;
     ObservableList<Fila> datos;
 
     public void crearUI()
@@ -32,10 +32,9 @@ public class Tabla extends Stage
 
     private void configurarTabla()
     {
-
         for (String column : metodo.columnasTabla)
         {
-            TableColumn <String, String> columna = new TableColumn<>(column);
+            TableColumn<Fila, String> columna = new TableColumn<>(column);
             columna.setCellValueFactory(new PropertyValueFactory<>(column));
             tabla.getColumns().add(columna);
         }
@@ -49,6 +48,7 @@ public class Tabla extends Stage
             filas.add(new Fila(listaIteraciones.get(i)));
         }
         datos.setAll(filas);
+        tabla.setItems(datos);
     }
 
     Tabla(Ecuacion metodo)

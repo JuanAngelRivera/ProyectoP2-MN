@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Interfaz extends Stage
 {
@@ -20,6 +21,8 @@ public class Interfaz extends Stage
     private LineChart<Number, Number> grafica;
     private Button buttonEcuacion;
     private Scene escena;
+    private List<TextField> textFieldParametros;
+
     private void crearUI(Ecuacion metodo)
     {
         Label titulo = new Label("Método " + metodo.titulo);
@@ -40,22 +43,32 @@ public class Interfaz extends Stage
 
     public void obtenerParametros(Ecuacion metodo)
     {
-        ArrayList <String> parametros = metodo.parametros;
-
-        for (String parametro : parametros)
+        for (String parametro : metodo.parametros)
         {
             Label label = new Label(parametro);
             TextField tf = new TextField("Valor para " + parametro);
             HBox hbox = new HBox(label, tf);
             vbox.getChildren().add(hbox);
+            textFieldParametros.add(tf);
         }
         Button button = new Button("Usar parametros");
-        button.setOnAction(e -> new Tabla(metodo));
+        button.setOnAction(e ->
+        {
+            Double[] valoresIniciales = new Double[metodo.parametros.size()];
+            for (int i = 0; i < textFieldParametros.size(); i++)
+            {
+                valoresIniciales[i] = Double.parseDouble(textFieldParametros.get(i).getText());
+            }
+            metodo.valoresParametro(valoresIniciales);
+            metodo.calcularIteraciones();
+            new Tabla(metodo);
+        });
         vbox.getChildren().add(button);
     }
 
     public Interfaz(Ecuacion metodo)
     {
+        this.textFieldParametros = new ArrayList<>();
         crearUI(metodo);
         this.setScene(escena);
         this.setTitle("HOLA");
