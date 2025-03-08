@@ -50,7 +50,7 @@ public class Tabla extends Stage
         }
         datos.setAll(filas);
         tabla.setItems(datos);
-        vbox.getChildren().add(new Label("Raíz aproximada con error <= 0.01%: " + metodo.obtenerRaiz()));
+        vbox.getChildren().add(new Label("Raíz aproximada con error <= 0.01%:\n" + metodo.obtenerRaiz()));
     }
 
     Tabla(Ecuacion metodo)
