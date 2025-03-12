@@ -21,6 +21,7 @@ public class Algoritmo extends Ecuacion
     public Algoritmo()
     {
         super();
+        super.listaIteraciones = new ArrayList();
         super.parametros(new String[]{"xi"});
         super.columnasTabla = new ArrayList<String>(Arrays.asList("No.", "xi", "f(xi)", "fp(xi)", "xi1", "error"));
         super.titulo("Newton-Rhapson");
@@ -37,6 +38,9 @@ public class Algoritmo extends Ecuacion
 
     public void calcularIteraciones()
     {
+        if (!super.listaIteraciones.isEmpty())
+            error = 1.0;
+
         int n = 1;
         super.listaIteraciones = new ArrayList<>();
 

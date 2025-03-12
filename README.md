@@ -10,17 +10,19 @@
 - [ ] Algoritmo Gauss-Jordan
 - [ ] Algoritmo Gauss-Seidel
 - [ ] Adaptacion Regla Falsa
-- [ ] Adaptacion Newton-Rhapson
+- [x] Adaptacion Newton-Rhapson
 - [ ] Adaptacion Gauss-Jordan
 - [ ] Adaptacion Gauss-Seidel
 - [ ] Generar interfaces
-- [ ] Crear tablas (ObservableList)
+- [x] Crear tablas (ObservableList)
 - [ ] Exportar archivo ejecutable
+- [ ] Traductor para JEP
+- [ ] Teclado de funciones
 
 
 ## Requerimientos del programa
-- [ ] Gráfica de la función
-- [ ] Tabla y valor de la aproximación
+- [x] Gráfica de la función
+- [x] Tabla y valor de la aproximación
 - [ ] Libre de errores
 
 ## Comandos básicos de Git

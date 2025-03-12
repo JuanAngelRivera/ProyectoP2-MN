@@ -62,11 +62,13 @@ public abstract class Ecuacion
 
     public LineChart <Number, Number> graficarFuncion(double minX, double maxX, double paso)
     {
+
         NumberAxis rangoX = new NumberAxis("x", minX, maxX, (maxX - minX) / 10);
         NumberAxis rangoY = new NumberAxis();
         rangoY.setLabel("f(x)");
 
         LineChart < Number, Number > lineChart = new LineChart<>(rangoX, rangoY);
+
         lineChart.setTitle("Gráfica de " + funcion);
 
         XYChart.Series < Number, Number > series = new XYChart.Series<>();
