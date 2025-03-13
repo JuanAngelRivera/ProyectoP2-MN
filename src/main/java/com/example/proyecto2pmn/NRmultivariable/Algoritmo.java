@@ -3,8 +3,10 @@ package com.example.proyecto2pmn.NRmultivariable;
 import java.io.*;
 import java.util.Scanner;
 
-public class Algoritmo {
-    public static void main(String[] args) {
+public class Algoritmo
+{
+    public static void main(String[] args)
+    {
         Scanner sc = new Scanner(System.in);
         System.out.println("Digiete la primera ecuacion multivariable f1(x,y)");
         String fun1= sc.nextLine();
@@ -21,7 +23,8 @@ public class Algoritmo {
         f2.setFun(fun2);
         f2.derivar();
         System.out.println(f2.getfun()+" dx= "+f2.getfundx()+" dy= "+f2.getfundy());
-        try {
+        try
+        {
             String p= "Python311\\python.exe";
             ProcessBuilder pb = new ProcessBuilder(p, "main.py", fun1, "y");
             pb.redirectErrorStream(true);
@@ -30,7 +33,8 @@ public class Algoritmo {
             // Leer la salida del script de Python
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
-            while ((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null)
+            {
                 System.out.println("1) y= : " + line);
             }
 
@@ -41,15 +45,15 @@ public class Algoritmo {
             // Leer la salida del script de Python
             reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line2;
-            while ((line2 = reader.readLine()) != null) {
+            while ((line2 = reader.readLine()) != null)
+            {
                 System.out.println("2) y= : " + line2);
             }
 
-
-
-
             process.waitFor();  // Espera a que termine el proceso
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
 
@@ -67,7 +71,8 @@ public class Algoritmo {
         String s="----------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
               s+="|No        |xi        |yi        |f1        |f2        |df1/dx    |df1/dy    |df2/dx    |df2/dy    |inx       |iny       |xi+1      |yi+1      |errorx    |errory    |\n";
               s+="----------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
-        while(errorx>error&&errory>error){
+        while(errorx > error && errory > error)
+        {
             double fxy1= Double.parseDouble(String.format("%.6f",f1.evaluarfuncionOriginal(xi,yi)));
             double df1x= Double.parseDouble(String.format("%.6f",f1.evaluarfuncionDerivadax(xi,yi)));
             double df1y= Double.parseDouble(String.format("%.6f",f1.evaluarfuncionDerivaday(xi,yi)));
@@ -100,7 +105,5 @@ public class Algoritmo {
         s+="----------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
         s+= "Con un error de: "+error+"%\nLos resultados son: \nx= "+xi+"\ny= "+yi+"\n";
         System.out.println(s+"\n");
-
-
     }
 }
