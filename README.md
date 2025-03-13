@@ -5,9 +5,9 @@
 - [x] Crear una clase padre Ecuación
 - [x] Encontrar una forma de reconocer las ecuaciones
 - [x] Encontrar una forma de graficar las ecuaciones
-- [ ] Algoritmo Regla Falsa
+- [x] Algoritmo Regla Falsa
 - [x] Algoritmo Newton-Rhapson
-- [ ] Algoritmo Gauss-Jordan
+- [x] Algoritmo Gauss-Jordan
 - [ ] Algoritmo Gauss-Seidel
 - [x] Algoritmo Gauss-Jordan Multivariable
 - [ ] Adaptacion Regla Falsa

@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 public abstract class Ecuacion
 {
-    public String funcion, titulo = "Newton-Rhapson";
+    public String funcion, descripcion, titulo = "Newton-Rhapson";
     private JEP jep;
     private Node funcionTraducida;
     public ArrayList<String> parametros, columnasTabla;
@@ -33,6 +33,7 @@ public abstract class Ecuacion
     {
         try
         {
+
             funcionTraducida = (Node) jep.parse(funcion);
         }
         catch (ParseException e)

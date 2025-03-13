@@ -5,6 +5,7 @@ module com.example.proyecto2pmn
     requires java.xml;
     requires jep;
     requires djep;
+    requires commons.math3;
 
 
     opens com.example.proyecto2pmn to javafx.fxml;

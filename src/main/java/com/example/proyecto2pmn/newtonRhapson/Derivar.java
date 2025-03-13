@@ -3,8 +3,6 @@ package com.example.proyecto2pmn.newtonRhapson;
 import org.lsmp.djep.djep.DJep;
 import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
-import java.text.DecimalFormat;
-import static java.lang.Float.NaN;
 
 public class Derivar
 {
@@ -28,11 +26,6 @@ public class Derivar
     public void setFun(String fun)
     {
         this.fun = fun;
-    }
-
-    public String getfun()
-    {
-        return this.fun;
     }
 
     public void derivar()

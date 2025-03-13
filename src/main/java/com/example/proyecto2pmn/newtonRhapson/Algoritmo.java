@@ -5,11 +5,9 @@ import com.example.proyecto2pmn.Ecuacion;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Algoritmo extends Ecuacion
 {
-    private String fun;
     private double xi;
     private double xi1;
     private double fx;
@@ -21,19 +19,12 @@ public class Algoritmo extends Ecuacion
     public Algoritmo()
     {
         super();
-        super.listaIteraciones = new ArrayList();
+        super.listaIteraciones = new ArrayList<>();
         super.parametros(new String[]{"xi"});
-        super.columnasTabla = new ArrayList<String>(Arrays.asList("No.", "xi", "f(xi)", "fp(xi)", "xi1", "error"));
+        super.columnasTabla = new ArrayList<>(Arrays.asList("No.", "xi", "f(xi)", "fp(xi)", "xi1", "error"));
         super.titulo("Newton-Rhapson");
         this.error = 1.0;
-    }
-
-    public String obtenerFuncion() {
-        return this.fun;
-    }
-
-    public String obtenerDerivada() {
-        return derivar.getfun();
+        super.descripcion = "MIAU";
     }
 
     public void calcularIteraciones()

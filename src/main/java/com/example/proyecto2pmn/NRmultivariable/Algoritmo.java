@@ -25,7 +25,7 @@ public class Algoritmo
         System.out.println(f2.getfun()+" dx= "+f2.getfundx()+" dy= "+f2.getfundy());
         try
         {
-            String p= "Python311\\python.exe";
+            String p = "Python311\\python.exe";
             ProcessBuilder pb = new ProcessBuilder(p, "main.py", fun1, "y");
             pb.redirectErrorStream(true);
             Process process = pb.start();

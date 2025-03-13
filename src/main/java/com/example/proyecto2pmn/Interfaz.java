@@ -1,6 +1,5 @@
 package com.example.proyecto2pmn;
 
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
@@ -12,14 +11,11 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Interfaz extends Stage
 {
-    private Label titulo;
+    private Label titulo, descripcion;
     private VBox vbox;
-    public HBox hboxEcuacion;
-    private TextField textFieldEcuacion;
     private LineChart<Number, Number> grafica;
     private Scene escena;
     private List<TextField> textFieldParametros;
@@ -28,40 +24,52 @@ public class Interfaz extends Stage
 
     private void crearUI(Ecuacion metodo)
     {
+        titulo = new Label("Método " + metodo.titulo);
+        descripcion = new Label("Descripción: " + metodo.descripcion);
         switch (metodo.titulo)
         {
             case "Gauss-Jordan":
                 break;
             case "Gauss-Seidel":
                 break;
+            case "Newton-Rhapson Multivariable":
+                newtonRhapsonMultivariableUI(metodo);
+                break;
             default:
-                Label titulo = new Label("Método " + metodo.titulo);
-                textFieldEcuacion = new TextField("Introduce la ecuación");
-                Button buttonEcuacion = new Button("Ver gráfica");
-                hboxEcuacion = new HBox(textFieldEcuacion, buttonEcuacion);
-                vbox = new VBox(titulo, hboxEcuacion);
-
-
-                buttonEcuacion.setOnAction(e -> {
-                    metodo.añadirFuncion(textFieldEcuacion.getText());
-                    if(vbox.getChildren().contains(grafica))
-                    {
-                        vbox.getChildren().remove(grafica);
-                        vbox.getChildren().removeAll(textFieldParametros);
-                        vbox.getChildren().remove(buttonParametros);
-                        vbox.getChildren().removeAll(hboxParametros);
-                        textFieldParametros.clear();
-                        hboxParametros.clear();
-                    }
-                    grafica = metodo.graficarFuncion(-10, 10, .3);
-                    vbox.getChildren().add(grafica);
-                    obtenerParametros(metodo);
-                });
+                newtonRhapsonUI(metodo);
                 break;
         }
-
-
         escena = new Scene(vbox);
+    }
+
+    private void newtonRhapsonMultivariableUI(Ecuacion metodo)
+    {
+
+    }
+
+    private void newtonRhapsonUI (Ecuacion metodo)
+    {
+        TextField textFieldEcuacion = new TextField("Introduce la ecuación");
+        Button buttonEcuacion = new Button("Ver gráfica");
+        HBox hboxEcuacion = new HBox(textFieldEcuacion, buttonEcuacion);
+        vbox = new VBox(titulo, hboxEcuacion, descripcion);
+
+
+        buttonEcuacion.setOnAction(e -> {
+            metodo.añadirFuncion(textFieldEcuacion.getText());
+            if(vbox.getChildren().contains(grafica))
+            {
+                vbox.getChildren().remove(grafica);
+                vbox.getChildren().removeAll(textFieldParametros);
+                vbox.getChildren().remove(buttonParametros);
+                vbox.getChildren().removeAll(hboxParametros);
+                textFieldParametros.clear();
+                hboxParametros.clear();
+            }
+            grafica = metodo.graficarFuncion(-10, 10, .3);
+            vbox.getChildren().add(grafica);
+            obtenerParametros(metodo);
+        });
     }
 
     public void obtenerParametros(Ecuacion metodo)
