@@ -1,5 +1,6 @@
 package com.example.proyecto2pmn;
 
+import com.example.proyecto2pmn.NRmultivariable.Algoritmo;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
@@ -8,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class Interfaz extends Stage
             case "Gauss-Seidel":
                 break;
             case "Newton-Rhapson Multivariable":
-                newtonRhapsonMultivariableUI(metodo);
+                newtonRhapsonMultivariableUI((Algoritmo) metodo);
                 break;
             default:
                 newtonRhapsonUI(metodo);
@@ -42,8 +42,26 @@ public class Interfaz extends Stage
         escena = new Scene(vbox);
     }
 
-    private void newtonRhapsonMultivariableUI(Ecuacion metodo)
+    private void newtonRhapsonMultivariableUI(Algoritmo metodo)
     {
+        TextField txtFxy1 = new TextField("Escriba la ecuación f1(x,y)");
+        TextField txtFxy2 = new TextField("Escriba la ecuación f2(x,y)");
+        Button buttonEcuaciones = new Button("Usar estas ecuaciones");
+        vbox = new VBox(txtFxy1, txtFxy2, buttonEcuaciones);
+        buttonEcuaciones.setOnAction(e -> {
+            metodo.setFun(txtFxy1.getText(), txtFxy2.getText());
+
+            Label f1dx = new Label("f1dx = " + metodo.fun1dx);
+            Label f1dy = new Label("f1dy = " + metodo.fun1dy);
+            Label f2dx = new Label("f2dx = " + metodo.fun2dx);
+            Label f2dy = new Label("f2dy = " + metodo.fun2dy);
+            vbox.getChildren().addAll(f1dx, f1dy, f2dx, f2dy);
+            if(hboxParametros == null)
+            {
+                hboxParametros = new ArrayList<>();
+                obtenerParametros(metodo);
+            }
+        });
 
     }
 

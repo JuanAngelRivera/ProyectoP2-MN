@@ -1,6 +1,6 @@
 package com.example.proyecto2pmn;
 
-import com.example.proyecto2pmn.reglaFalsa.Algoritmo;
+import com.example.proyecto2pmn.NRmultivariable.Algoritmo;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
@@ -15,7 +15,7 @@ public class HelloApplication extends Application
 {
     private MenuBar menu;
     private Menu ecuaciones, abiertos, cerrados, lineales;
-    private MenuItem reglaFalsa, newtonRhapson, gaussJordan, gaussSeidel;
+    private MenuItem reglaFalsa, newtonRhapson, gaussJordan, gaussSeidel, gaussJordanMV;
     private VBox vbox;
     private Scene escena;
 
@@ -33,12 +33,15 @@ public class HelloApplication extends Application
         gaussSeidel = new MenuItem("Gauss Seidel");
         //gaussSeidel.setOnAction(e -> new Interfaz(new Ecuacion()));
 
+        gaussJordanMV = new MenuItem("Gauss Jordan Multivariable");
+        gaussJordanMV.setOnAction(event -> new Interfaz(new Algoritmo()));
+
         abiertos = new Menu("Abiertos");
         abiertos.getItems().addAll(newtonRhapson);
         cerrados = new Menu("Cerrados");
         cerrados.getItems().addAll(reglaFalsa);
         lineales = new Menu("Lineales");
-        lineales.getItems().addAll(gaussJordan, gaussSeidel);
+        lineales.getItems().addAll(gaussJordan, gaussSeidel, gaussJordanMV);
 
         ecuaciones = new Menu("Ecuaciones");
 

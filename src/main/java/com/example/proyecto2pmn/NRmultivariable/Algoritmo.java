@@ -1,28 +1,38 @@
 package com.example.proyecto2pmn.NRmultivariable;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
+import com.example.proyecto2pmn.Ecuacion;
 
-public class Algoritmo
+public class Algoritmo extends Ecuacion
 {
-    public static void main(String[] args)
+    public String fun1, fun2, fun1dx, fun1dy, fun2dx, fun2dy;
+    Double x0, y0;
+    Derivar f1, f2;
+    public void setFun(String ecuacion1, String ecuacion2)
     {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Digiete la primera ecuacion multivariable f1(x,y)");
-        String fun1= sc.nextLine();
-        System.out.println("Digiete la segunda ecuacion multivariable f2(x,y)");
-        String fun2= sc.nextLine();
+        fun1 = ecuacion1;
+        fun2 = ecuacion2;
 
-        Derivar f1= new Derivar();
+        f1 = new Derivar();
         f1.setFun(fun1);
         f1.derivar();
+        fun1dx = f1.getfundx();
+        fun1dy = f1.getfundy();
 
-        System.out.println(f1.getfun()+" dx= "+f1.getfundx()+" dy= "+f1.getfundy());
-
-        Derivar f2= new Derivar();
+        f2 = new Derivar();
         f2.setFun(fun2);
         f2.derivar();
-        System.out.println(f2.getfun()+" dx= "+f2.getfundx()+" dy= "+f2.getfundy());
+        fun2dx = f2.getfundx();
+        fun2dy = f2.getfundy();
+    }
+
+    public void calcularIteraciones()
+    {
+        Scanner sc = new Scanner(System.in);
+
         try
         {
             String p = "Python311\\python.exe";
@@ -105,5 +115,28 @@ public class Algoritmo
         s+="----------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
         s+= "Con un error de: "+error+"%\nLos resultados son: \nx= "+xi+"\ny= "+yi+"\n";
         System.out.println(s+"\n");
+    }
+
+    public Algoritmo()
+    {
+        super.titulo = "Newton-Rhapson Multivariable";
+        super.descripcion = "Descripcion NRM";
+        super.listaIteraciones = new ArrayList<>();
+        super.parametros(new String[]{"x0", "y0"});
+        super.columnasTabla = new ArrayList<>(Arrays.asList("No.", "xi", "yi", "fxy1", "fxy2", "df1x", "df1y", "df2x",
+                "df2y", "increx", "increy", "xi1", "yi1", "errorx", "errory"));
+    }
+
+    @Override
+    public double obtenerRaiz()
+    {
+        return 0;
+    }
+
+    @Override
+    public void valoresParametro(Double[] parametros)
+    {
+        x0 = parametros[0];
+        y0 = parametros[1];
     }
 }
