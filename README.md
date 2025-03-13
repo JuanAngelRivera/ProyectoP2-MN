@@ -9,10 +9,12 @@
 - [x] Algoritmo Newton-Rhapson
 - [ ] Algoritmo Gauss-Jordan
 - [ ] Algoritmo Gauss-Seidel
+- [x] Algoritmo Gauss-Jordan Multivariable
 - [ ] Adaptacion Regla Falsa
 - [x] Adaptacion Newton-Rhapson
 - [ ] Adaptacion Gauss-Jordan
 - [ ] Adaptacion Gauss-Seidel
+- [ ] Adaptacion Gauss-Jordan Multivariable
 - [ ] Generar interfaces
 - [x] Crear tablas (ObservableList)
 - [ ] Exportar archivo ejecutable
