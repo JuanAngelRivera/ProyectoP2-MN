@@ -15,7 +15,8 @@ public class Algoritmo extends Ecuacion
     {
         fun1 = ecuacion1;
         fun2 = ecuacion2;
-
+        System.out.println("Fun1: " + fun1);
+        System.out.println("Fun2: " + fun2);
         f1 = new Derivar();
         f1.setFun(fun1);
         f1.derivar();

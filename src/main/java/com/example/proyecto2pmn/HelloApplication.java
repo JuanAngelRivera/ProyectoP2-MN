@@ -28,7 +28,7 @@ public class HelloApplication extends Application
         newtonRhapson.setOnAction(e -> new Interfaz(new com.example.proyecto2pmn.newtonRhapson.Algoritmo()));
 
         gaussJordan = new MenuItem("Gauss Jordan");
-        //gaussJordan.setOnAction(e -> new Interfaz(new Ecuacion()));
+        gaussJordan.setOnAction(e -> new Interfaz(new com.example.proyecto2pmn.GaussJordan.Algoritmo()));
 
         gaussSeidel = new MenuItem("Gauss Seidel");
         //gaussSeidel.setOnAction(e -> new Interfaz(new Ecuacion()));

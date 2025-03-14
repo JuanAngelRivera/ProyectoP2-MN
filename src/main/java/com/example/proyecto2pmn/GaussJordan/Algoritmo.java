@@ -1,41 +1,53 @@
 package com.example.proyecto2pmn.GaussJordan;
 
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.example.proyecto2pmn.Ecuacion;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import org.apache.commons.math3.linear.*;
 
 
-public class Method
+public class Algoritmo extends Ecuacion
 {
-    public static void main(String[] args)
-    {
-        Method obj = new Method();
-    }
-
-    int a_numbFunc, a_numbCoefficient;
-    String a_functions [];
-    double a_coefficients [][];
-    double a_constants [];
+    public int a_numbFunc, a_numbCoefficient;
+    public String a_functions [];
+    public double a_coefficients [][];
+    public double a_constants [];
     boolean flag =true;
     Scanner sc = new Scanner(System.in);
-    Method()
+
+    @Override
+    public double obtenerRaiz()
+    {
+        return 0;
+    }
+
+    @Override
+    public void valoresParametro(Double[] parametros)
+    {
+    }
+
+    @Override
+    public void calcularIteraciones()
     {
         m_intrData();
     }
+
     void m_intrData()
     {
         System.out.println("The functions must be on terms of X");
         System.out.println("You must add all the coefficients of X, even if they are 0");
         System.out.println("Enter the number of functions you want to perform");
-        a_numbFunc = Integer.parseInt(sc.nextLine());
         System.out.println("How many variables exists, enter your coefficients");
-        a_numbCoefficient = Integer.parseInt(sc.nextLine());
         a_functions = new String[a_numbFunc];
         for (int i = 0; i < a_numbFunc; i++)
         {
-            System.out.println("Enter the function"+i+1+" you want to perform");
+            System.out.println("Enter the function" + (i+1) + " you want to perform");
             a_functions[i] = sc.nextLine();
         }
         a_coefficients = new double[a_numbFunc][a_numbCoefficient];
@@ -262,6 +274,39 @@ public class Method
         if (Math.abs(rounded - Math.round(rounded)) < tol)
             return String.valueOf((int)Math.round(rounded));
         return String.format("%.4f", rounded);
+    }
+
+    public GridPane crearGridPane ()
+    {
+        GridPane gridPane = new GridPane();
+
+        for (int i = 0; i < a_numbFunc + 1; i++)
+        {
+            for (int j = 0; j < a_numbCoefficient + 1; j++)
+            {
+                if (i == 0 || j == 0)
+                {
+                    Label label = new Label((i == 0 && j == 0) ? "" :
+                            (i == 0 ? "X" + j : "f" + i));
+                    gridPane.add(label, j, i);
+                }
+                else
+                {
+                    TextField textField = new TextField();
+                    textField.setPromptText("X" + j);
+                    gridPane.add(textField, j, i);
+                }
+            }
+        }
+
+        return gridPane;
+    }
+
+    public Algoritmo()
+    {
+        super();
+        super.titulo = "Gauss-Jordan";
+        super.descripcion = "Descripcion Gauss-Jordan";
     }
 }
 

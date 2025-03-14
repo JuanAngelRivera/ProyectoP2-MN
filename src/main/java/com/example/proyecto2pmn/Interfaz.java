@@ -1,14 +1,19 @@
 package com.example.proyecto2pmn;
 
 import com.example.proyecto2pmn.NRmultivariable.Algoritmo;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.w3c.dom.Text;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +34,7 @@ public class Interfaz extends Stage
         switch (metodo.titulo)
         {
             case "Gauss-Jordan":
+                GaussJordanUI((com.example.proyecto2pmn.GaussJordan.Algoritmo) metodo);
                 break;
             case "Gauss-Seidel":
                 break;
@@ -40,6 +46,47 @@ public class Interfaz extends Stage
                 break;
         }
         escena = new Scene(vbox);
+    }
+
+    private void GaussJordanUI(com.example.proyecto2pmn.GaussJordan.Algoritmo metodo)
+    {
+        vbox = new VBox();
+        TextField txtEcuaciones = new TextField("Introduce el número de ecuaciones");
+        Button buttonEcuaciones = new Button("OK");
+        vbox.getChildren().addAll(txtEcuaciones, buttonEcuaciones);
+        buttonEcuaciones.setOnAction(e -> {
+            TextField txtVariables = new TextField("Introduce el numero de variables");
+            Button buttonVariables = new Button("OK");
+            vbox.getChildren().addAll(txtVariables, buttonVariables);
+            metodo.a_numbFunc = Integer.parseInt(txtEcuaciones.getText());
+            buttonVariables.setOnAction(event -> {
+                metodo.a_numbCoefficient = Integer.parseInt(txtVariables.getText());
+                metodo.a_functions = new String[metodo.a_numbFunc];
+                GridPane grid = metodo.crearGridPane();
+                Button buttonParametros = new Button("Obtener solución");
+
+                buttonParametros.setOnAction(event1 -> {
+                    ArrayList<String> valores = new ArrayList<>();
+                    for(Node node : grid.getChildren())
+                    {
+                        if (node instanceof TextField)
+                        {
+                            TextField tf = (TextField) node;
+                            Integer renglon = GridPane.getRowIndex(node);
+                            Integer columna = GridPane.getColumnIndex(node);
+
+                            renglon = (renglon == null) ? 0: renglon;
+                            columna = (columna == null) ? 0: columna;
+
+                            String valor = tf.getText();
+                            valores.add(valor + "x" + columna);
+                        }
+                    }
+                    metodo.valoresParametro()
+                });
+                vbox.getChildren().addAll(grid, buttonParametros);
+            });
+        });
     }
 
     private void newtonRhapsonMultivariableUI(Algoritmo metodo)
