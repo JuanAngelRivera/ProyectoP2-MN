@@ -123,7 +123,9 @@ public class Algoritmo extends Ecuacion
     public Algoritmo()
     {
         super("Newton-Rhapson Multivariable");
-        super.descripcion = "Descripcion NRM";
+        super.descripcion = "El método de Newton-Raphson para sistemas no lineales es una extensión del método de una variable, aplicada a varias ecuaciones no lineales simultáneamente.\n" +
+                "Consiste en linealizar el sistema mediante la matriz Jacobiana de derivadas parciales, y resolver iterativamente el sistema de ecuaciones lineales resultante para aproximar la raíz del sistema completo.\n" +
+                "Este enfoque se deriva directamente del trabajo de Newton y Raphson, pero su generalización al caso multivariable surgió de los desarrollos en análisis vectorial y cálculo diferencial en los siglos XVIII y XIX, particularmente con el desarrollo del concepto de Jacobiano.";
         super.listaIteraciones = new ArrayList<>();
         super.parametros(new String[]{"x0", "y0", "error permitido"});
         super.columnasTabla = new ArrayList<>(Arrays.asList("No.", "xi", "yi", "fxy1", "fxy2", "df1x", "df1y", "df2x",
