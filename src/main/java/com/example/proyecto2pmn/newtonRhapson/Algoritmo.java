@@ -15,13 +15,14 @@ public class Algoritmo extends Ecuacion
 
     public Algoritmo()
     {
-        super();
+        super("Newton-Rhapson");
         super.listaIteraciones = new ArrayList<>();
         super.parametros(new String[]{"xi", "error"});
         super.columnasTabla = new ArrayList<>(Arrays.asList("No.", "xi", "f(xi)", "fp(xi)", "xi1", "error"));
-        super.titulo("Newton-Rhapson");
         this.error = 1.0;
-        super.descripcion = "MIAU";
+        super.descripcion = "El método de Newton-Raphson es un procedimiento iterativo para encontrar aproximaciones de raíces de una función real. Se basa en la linealización de la función (usando su derivada) y se repite hasta alcanzar la precisión deseada.\n" +
+                "El método fue introducido por Isaac Newton alrededor de 1669, pero fue Joseph Raphson quien lo publicó en 1690 y le dio una formulación más sencilla y general. De ahí el nombre Newton-Raphson.\n" +
+                "Es uno de los métodos más importantes y utilizados en el análisis numérico por su rapidez de convergencia en funciones suaves.";
     }
 
     public void calcularIteraciones()

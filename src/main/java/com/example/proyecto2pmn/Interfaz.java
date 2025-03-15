@@ -7,6 +7,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -21,6 +22,7 @@ public class Interfaz extends Stage
 {
     private Label titulo, descripcion;
     private VBox vbox;
+    private HBox hboxDescripcion;
     private LineChart<Number, Number> grafica;
     private Scene escena;
     private List<TextField> textFieldParametros;
@@ -30,7 +32,11 @@ public class Interfaz extends Stage
     private void crearUI(Ecuacion metodo)
     {
         titulo = new Label("Método " + metodo.titulo);
-        descripcion = new Label("Descripción: " + metodo.descripcion);
+        descripcion = new Label(metodo.descripcion);
+        descripcion.setWrapText(true);
+        ImageView imagen = new ImageView(metodo.imagen);
+        hboxDescripcion = new HBox(descripcion, imagen);
+        vbox = new VBox(titulo, hboxDescripcion);
         switch (metodo.titulo)
         {
             case "Gauss-Jordan":
@@ -50,7 +56,6 @@ public class Interfaz extends Stage
 
     private void GaussJordanUI(com.example.proyecto2pmn.GaussJordan.Algoritmo metodo)
     {
-        vbox = new VBox();
         TextField txtEcuaciones = new TextField("Introduce el número de ecuaciones");
         Button buttonEcuaciones = new Button("OK");
         vbox.getChildren().addAll(txtEcuaciones, buttonEcuaciones);
@@ -126,7 +131,7 @@ public class Interfaz extends Stage
         TextField txtFxy1 = new TextField("Escriba la ecuación f1(x,y)");
         TextField txtFxy2 = new TextField("Escriba la ecuación f2(x,y)");
         Button buttonEcuaciones = new Button("Usar estas ecuaciones");
-        vbox = new VBox(txtFxy1, txtFxy2, buttonEcuaciones);
+        vbox.getChildren().addAll(txtFxy1, txtFxy2, buttonEcuaciones);
         buttonEcuaciones.setOnAction(e -> {
             metodo.setFun(txtFxy1.getText(), txtFxy2.getText());
 
@@ -145,23 +150,36 @@ public class Interfaz extends Stage
         TextField textFieldEcuacion = new TextField("Introduce la ecuación");
         Button buttonEcuacion = new Button("Ver gráfica");
         HBox hboxEcuacion = new HBox(textFieldEcuacion, buttonEcuacion);
-        vbox = new VBox(titulo, hboxEcuacion, descripcion);
+        vbox.getChildren().addAll(hboxEcuacion);
 
 
-        buttonEcuacion.setOnAction(e -> {
-            metodo.añadirFuncion(textFieldEcuacion.getText());
-            if(vbox.getChildren().contains(grafica))
-            {
-                vbox.getChildren().remove(grafica);
-                vbox.getChildren().removeAll(textFieldParametros);
-                vbox.getChildren().remove(buttonParametros);
-                vbox.getChildren().removeAll(hboxParametros);
-                textFieldParametros.clear();
-                hboxParametros.clear();
-            }
-            grafica = metodo.graficarFuncion(-10, 10, .3);
-            vbox.getChildren().add(grafica);
-            obtenerParametros(metodo);
+            buttonEcuacion.setOnAction(e -> {
+                try
+                {
+                    boolean a = metodo.añadirFuncion(textFieldEcuacion.getText());
+                    if(a)
+                    {
+                        if (vbox.getChildren().contains(grafica))
+                        {
+                            vbox.getChildren().remove(grafica);
+                            vbox.getChildren().removeAll(textFieldParametros);
+                            vbox.getChildren().remove(buttonParametros);
+                            vbox.getChildren().removeAll(hboxParametros);
+                            textFieldParametros.clear();
+                            hboxParametros.clear();
+                        }
+                        grafica = metodo.graficarFuncion(-10, 10, .3);
+
+                        vbox.getChildren().add(grafica);
+                        obtenerParametros(metodo);
+                    }
+                    else
+                        new VentanaError("No se pudo graficar la función");
+                }
+                catch (Exception ex)
+                {
+                    new VentanaError(ex.getMessage());
+                }
         });
     }
 
@@ -179,15 +197,22 @@ public class Interfaz extends Stage
         buttonParametros = new Button("Usar parametros");
         buttonParametros.setOnAction(e ->
         {
-            Double[] valoresIniciales = new Double[metodo.parametros.size()];
-            for (int i = 0; i < textFieldParametros.size(); i++)
+            try
             {
-                valoresIniciales[i] = Double.parseDouble(textFieldParametros.get(i).getText());
+                Double[] valoresIniciales = new Double[metodo.parametros.size()];
+                for (int i = 0; i < textFieldParametros.size(); i++)
+                {
+                    valoresIniciales[i] = Double.parseDouble(textFieldParametros.get(i).getText());
+                }
+                metodo.valoresParametro(valoresIniciales);
+                metodo.calcularIteraciones();
+                System.out.println(metodo.listaIteraciones);
+                new Tabla(metodo);
             }
-            metodo.valoresParametro(valoresIniciales);
-            metodo.calcularIteraciones();
-            System.out.println(metodo.listaIteraciones);
-            new Tabla(metodo);
+            catch (Exception ex)
+            {
+                new VentanaError("Introduce solo valores numéricos");
+            }
         });
         vbox.getChildren().add(buttonParametros);
     }

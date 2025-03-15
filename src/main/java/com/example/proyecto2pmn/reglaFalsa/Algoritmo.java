@@ -1,5 +1,6 @@
 package com.example.proyecto2pmn.reglaFalsa;
 import com.example.proyecto2pmn.Ecuacion;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,9 +11,13 @@ public class Algoritmo extends Ecuacion
     public Double a, b, fa, fb, xr, fxr, errorU, errorAbs;
     public Algoritmo()
     {
-        super();
-        super.titulo = "Regla Falsa";
-        super.descripcion = "Descripcion regla Falsa";
+        super("Regla Falsa");
+        super.descripcion = "El método de la regla falsa o regla falsa simple es un procedimiento antiguo para encontrar raíces" +
+                " aproximadas de ecuaciones. Se originó en la matemática babilónica, hace más de 3,000 años. Sin embargo, su" +
+                " desarrollo formal y sistemático dentro del contexto de los métodos numéricos modernos se atribuye a los " +
+                "matemáticos europeos durante el Renacimiento.\nMás adelante, el método fue formalizado y mejorado en el siglo" +
+                " XVIII. A veces se le atribuye al matemático francés Joseph-Louis Lagrange (1736-1813), quien trabajó en métodos" +
+                " de aproximación y de raíces de ecuaciones, aunque no fue el creador original del método.";
         super.columnasTabla = new ArrayList<>(Arrays.asList("No.", "a", "b", "f(a)", "f(b)", "Xr", "f(Xr)", "error"));
         super.parametros(new String[]{"a", "b", "error"});
         super.listaIteraciones = new ArrayList<>();

@@ -331,9 +331,10 @@ public class Algoritmo extends Ecuacion
 
     public Algoritmo()
     {
-        super();
-        super.titulo = "Gauss-Jordan";
-        super.descripcion = "Descripcion Gauss-Jordan";
+        super("Gauss-Jordan");
+        super.descripcion = "El método de Gauss-Jordan es una extensión del método de eliminación de Gauss, desarrollado para resolver sistemas de ecuaciones lineales y encontrar inversas de matrices\n" +
+                "Este método automatiza el proceso de eliminación hacia una forma reducida de la matriz escalonada (es decir, lleva la matriz a la llamada forma canónica o identidad, también conocida como forma escalonada reducida por filas).\n" +
+                "Aunque el método Gauss-Jordan no fue inventado por Carl Friedrich Gauss (1777-1855) ni por Wilhelm Jordan (1842-1899), el nombre honra a Gauss por su método de eliminación y a Jordan, quien realizó estudios importantes en álgebra lineal y presentó mejoras prácticas. Jordan no inventó este método directamente, pero su trabajo inspiró el desarrollo posterior.(A la derecha foto de Wilhelm Jordan).";
     }
 }
 

@@ -14,8 +14,8 @@ import java.io.IOException;
 public class HelloApplication extends Application
 {
     private MenuBar menu;
-    private Menu ecuaciones, abiertos, cerrados, lineales;
-    private MenuItem reglaFalsa, newtonRhapson, gaussJordan, gaussSeidel, gaussJordanMV;
+    private Menu ecuaciones, abiertos, cerrados, lineales, extra;
+    private MenuItem reglaFalsa, newtonRhapson, gaussJordan, gaussSeidel, gaussJordanMV, info;
     private VBox vbox;
     private Scene escena;
 
@@ -43,13 +43,19 @@ public class HelloApplication extends Application
         lineales = new Menu("Lineales");
         lineales.getItems().addAll(gaussJordan, gaussSeidel, gaussJordanMV);
 
+        info = new MenuItem("Autores del programa");
+        info.setOnAction(event -> new Info());
+        extra = new Menu("Acerca del programa");
+        extra.getItems().addAll(info);
+
         ecuaciones = new Menu("Ecuaciones");
 
         ecuaciones.getItems().addAll(abiertos, cerrados, lineales);
         menu = new MenuBar();
-        menu.getMenus().addAll(ecuaciones);
+        menu.getMenus().addAll(ecuaciones, extra);
         vbox = new VBox(menu);
         escena = new Scene(vbox);
+        escena.getStylesheets().add(getClass().getResource("/css/general.css").toExternalForm());
     }
     @Override
     public void start(Stage stage) throws IOException

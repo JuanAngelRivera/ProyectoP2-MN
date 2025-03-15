@@ -3,21 +3,26 @@ package com.example.proyecto2pmn;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.image.Image;
 import org.nfunk.jep.JEP;
 import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public abstract class Ecuacion
 {
-    public String funcion, descripcion, titulo = "Newton-Rhapson";
+    public String funcion, descripcion, titulo;
     public double errorU;
     private JEP jep;
     private Node funcionTraducida;
     public ArrayList<String> parametros, columnasTabla;
     public ArrayList<String[]> listaIteraciones;
+    public Image imagen;
 
     private JEP configJep()
     {
@@ -30,18 +35,100 @@ public abstract class Ecuacion
         return jep;
     }
 
-    private void traducirFuncion()
+    private boolean traducirFuncion()
     {
-        try
+        if(validar(funcion))
         {
-
-            funcionTraducida = (Node) jep.parse(funcion);
+            if(validarf(funcion))
+            {
+                try {
+                    funcionTraducida = jep.parse(funcion);
+                    return true;
+                }
+                catch (ParseException e)
+                {
+                    new VentanaError(null);
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+            else
+            {
+                new VentanaError(null);
+                return false;
+            }
         }
-        catch (ParseException e)
+        else
         {
-            e.printStackTrace();
+            new VentanaError("¡Verifica tus paréntesis!");
+            return false;
         }
     }
+
+    private boolean validarf(String funcion)
+    {
+        String[] functions = {
+                "asin", "acos", "atan", "acot", "asec", "acsc",
+                "sinh", "cosh", "tanh",
+                "ln", "log", "sqrt", "exp", "abs",
+                "sin", "cos", "tan", "cot", "sec", "csc"
+        };
+        List<String> functionList = Arrays.asList(functions);
+
+        Pattern p = Pattern.compile("[a-zA-Z]+", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(funcion);
+
+        while (m.find())
+        {
+            String match = m.group();
+            if(match.equalsIgnoreCase("x"))
+            {
+                continue;
+            }
+            if (functionList.contains(match.toLowerCase()))
+            {
+                int indexAfter = m.end();
+                while (indexAfter < funcion.length() && Character.isWhitespace(funcion.charAt(indexAfter)))
+                {
+                    indexAfter++;
+                }
+                if (indexAfter >= funcion.length() || funcion.charAt(indexAfter) != '(')
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    private boolean validar(String funcion)
+    {
+        int derecho = 0;
+        int izquierda = 0;
+
+        for (char c : funcion.toCharArray())
+        {
+            if (c == '(')
+            {
+                izquierda++;
+            }
+            if (c == ')')
+            {
+                derecho++;
+            }
+            if (derecho > izquierda)
+            {
+                return false;
+            }
+        }
+        return izquierda == derecho;
+    }
+
 
     public double evaluarFuncion(double x)
     {
@@ -87,10 +174,10 @@ public abstract class Ecuacion
         return lineChart;
     }
 
-    public void añadirFuncion(String funcion)
+    public boolean añadirFuncion(String funcion)
     {
         this.funcion = funcion;
-        traducirFuncion();
+        return traducirFuncion();
     }
 
     public void titulo(String titulo)
@@ -117,9 +204,12 @@ public abstract class Ecuacion
 
     public abstract void calcularIteraciones();
 
-    protected Ecuacion()
+    protected Ecuacion(String titulo)
     {
+        this.titulo = titulo;
         this.jep = configJep();
         parametros = new ArrayList<String>(Arrays.asList(""));
+        System.out.println("/images/" + titulo + ".png");
+        imagen = new Image(getClass().getResourceAsStream("/images/" + titulo + ".png"));
     }
 }

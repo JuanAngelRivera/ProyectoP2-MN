@@ -122,7 +122,7 @@ public class Algoritmo extends Ecuacion
 
     public Algoritmo()
     {
-        super.titulo = "Newton-Rhapson Multivariable";
+        super("Newton-Rhapson Multivariable");
         super.descripcion = "Descripcion NRM";
         super.listaIteraciones = new ArrayList<>();
         super.parametros(new String[]{"x0", "y0", "error permitido"});
