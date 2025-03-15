@@ -12,7 +12,7 @@
 - [x] Algoritmo Gauss-Jordan Multivariable
 - [ ] Adaptacion Regla Falsa
 - [x] Adaptacion Newton-Rhapson
-- [ ] Adaptacion Gauss-Jordan
+- [x] Adaptacion Gauss-Jordan
 - [ ] Adaptacion Gauss-Seidel
 - [ ] Adaptacion Gauss-Jordan Multivariable
 - [ ] Generar interfaces

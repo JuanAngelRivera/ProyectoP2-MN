@@ -11,11 +11,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Interfaz extends Stage
 {
@@ -66,7 +66,8 @@ public class Interfaz extends Stage
                 Button buttonParametros = new Button("Obtener solución");
 
                 buttonParametros.setOnAction(event1 -> {
-                    ArrayList<String> valores = new ArrayList<>();
+                    Map <Integer, StringBuilder> valores = new HashMap<>();
+
                     for(Node node : grid.getChildren())
                     {
                         if (node instanceof TextField)
@@ -78,11 +79,42 @@ public class Interfaz extends Stage
                             renglon = (renglon == null) ? 0: renglon;
                             columna = (columna == null) ? 0: columna;
 
-                            String valor = tf.getText();
-                            valores.add(valor + "x" + columna);
+                            if(renglon == 0 || columna == 0)
+                                continue;
+                            if(columna == grid.getColumnCount() - 1)
+                            {
+                                System.out.println(columna);
+                                String valor = tf.getText().trim();
+                                valor = "=" + valor;
+                                valores.putIfAbsent(renglon, new StringBuilder());
+                                valores.get(renglon).append(valor);
+                                continue;
+                            }
+
+                            String valor = tf.getText().trim();
+
+                            if (!valor.isEmpty() && !valor.startsWith("-"))
+                                valor = "+" + valor;
+
+                            valores.putIfAbsent(renglon, new StringBuilder());
+                            valores.get(renglon).append(valor + "x" + columna);
                         }
                     }
-                    metodo.valoresParametro()
+                    List<String> renglonesConcatenados = new ArrayList<>();
+                    valores.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(entry ->
+                            renglonesConcatenados.add(entry.getValue().toString()));
+                    for (int i = 0; i < metodo.a_functions.length; i++)
+                    {
+                        metodo.a_functions[i] = renglonesConcatenados.get(i);
+                    }
+                    metodo.calcularIteraciones();
+                    Label estado = new Label(metodo.estado);
+                    vbox.getChildren().add(estado);
+                    for (int i = 0; i < metodo.resultados.size(); i++)
+                    {
+                        Label label = new Label(metodo.resultados.get(i));
+                        vbox.getChildren().add(label);
+                    }
                 });
                 vbox.getChildren().addAll(grid, buttonParametros);
             });
