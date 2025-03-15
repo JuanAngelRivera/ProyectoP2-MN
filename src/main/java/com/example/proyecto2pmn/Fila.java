@@ -16,6 +16,7 @@ public class Fila
     }
     public SimpleStringProperty obtenerValores(int index)
     {
+        System.out.println(valores.get(index));
         return valores.get(index);
     }
 }

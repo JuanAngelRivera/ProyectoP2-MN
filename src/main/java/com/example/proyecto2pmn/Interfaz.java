@@ -135,11 +135,7 @@ public class Interfaz extends Stage
             Label f2dx = new Label("f2dx = " + metodo.fun2dx);
             Label f2dy = new Label("f2dy = " + metodo.fun2dy);
             vbox.getChildren().addAll(f1dx, f1dy, f2dx, f2dy);
-            if(hboxParametros == null)
-            {
-                hboxParametros = new ArrayList<>();
-                obtenerParametros(metodo);
-            }
+            obtenerParametros(metodo);
         });
 
     }

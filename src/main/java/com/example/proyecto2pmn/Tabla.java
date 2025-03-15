@@ -1,5 +1,6 @@
 package com.example.proyecto2pmn;
 
+import com.example.proyecto2pmn.NRmultivariable.Algoritmo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -32,6 +33,8 @@ public class Tabla extends Stage
 
     private void configurarTabla()
     {
+        tabla.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
         for (int i = 0; i < metodo.columnasTabla.size(); i++)
         {
             TableColumn<Fila, String> columna = new TableColumn<>(metodo.columnasTabla.get(i));
@@ -50,7 +53,15 @@ public class Tabla extends Stage
         }
         datos.setAll(filas);
         tabla.setItems(datos);
-        vbox.getChildren().add(new Label("Raíz aproximada con error <= 0.01%:\n" + metodo.obtenerRaiz()));
+        vbox.getChildren().add(new Label("Raíz aproximada con error <= " + metodo.obtenerErrorU() + ":\n"));
+        if (metodo instanceof Algoritmo)
+        {
+            Label x = new Label("Valor de x = " + ((Algoritmo) metodo).valorxi1());
+            Label y = new Label("Valor de y = " + ((Algoritmo) metodo).valoryi1());
+            vbox.getChildren().addAll(x, y);
+        }
+        else
+            vbox.getChildren().add(new Label(metodo.obtenerRaiz() + ""));
     }
 
     Tabla(Ecuacion metodo)
@@ -59,6 +70,7 @@ public class Tabla extends Stage
         datos = FXCollections.observableArrayList();
         crearUI();
         configurarTabla();
+        System.out.println(this.metodo.errorU);
         cargarTabla(metodo.listaIteraciones);
         this.setTitle("Tabla del método " + metodo.titulo);
         this.setScene(escena);

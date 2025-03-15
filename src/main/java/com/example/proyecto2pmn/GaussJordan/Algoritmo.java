@@ -31,6 +31,11 @@ public class Algoritmo extends Ecuacion
     }
 
     @Override
+    public double obtenerErrorU() {
+        return 0;
+    }
+
+    @Override
     public void valoresParametro(Double[] parametros)
     {
     }

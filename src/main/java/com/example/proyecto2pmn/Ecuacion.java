@@ -13,6 +13,7 @@ import java.util.Arrays;
 public abstract class Ecuacion
 {
     public String funcion, descripcion, titulo = "Newton-Rhapson";
+    public double errorU;
     private JEP jep;
     private Node funcionTraducida;
     public ArrayList<String> parametros, columnasTabla;
@@ -109,6 +110,8 @@ public abstract class Ecuacion
     }
 
     public abstract double obtenerRaiz();
+
+    public abstract double obtenerErrorU();
 
     public abstract void valoresParametro(Double[] parametros);
 

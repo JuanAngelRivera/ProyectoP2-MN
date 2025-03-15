@@ -22,7 +22,7 @@ public class HelloApplication extends Application
     public void create_ui()
     {
         reglaFalsa = new MenuItem("Regla Falsa");
-        //reglaFalsa.setOnAction(e -> new Interfaz(new Algoritmo()));
+        reglaFalsa.setOnAction(e -> new Interfaz(new com.example.proyecto2pmn.reglaFalsa.Algoritmo()));
 
         newtonRhapson = new MenuItem("Newton Rhapson");
         newtonRhapson.setOnAction(e -> new Interfaz(new com.example.proyecto2pmn.newtonRhapson.Algoritmo()));

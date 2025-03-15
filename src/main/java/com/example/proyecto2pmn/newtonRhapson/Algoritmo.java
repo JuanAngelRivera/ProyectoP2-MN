@@ -8,11 +8,8 @@ import java.util.Arrays;
 
 public class Algoritmo extends Ecuacion
 {
-    private double xi;
-    private double xi1;
-    private double fx;
-    private double fxp;
-    private double error;
+    private double xi, xi1, fx, fxp, error;
+    public double errorU;
     private Derivar derivar = new Derivar();
     private static final DecimalFormat df = new DecimalFormat("#.######");
 
@@ -20,7 +17,7 @@ public class Algoritmo extends Ecuacion
     {
         super();
         super.listaIteraciones = new ArrayList<>();
-        super.parametros(new String[]{"xi"});
+        super.parametros(new String[]{"xi", "error"});
         super.columnasTabla = new ArrayList<>(Arrays.asList("No.", "xi", "f(xi)", "fp(xi)", "xi1", "error"));
         super.titulo("Newton-Rhapson");
         this.error = 1.0;
@@ -35,7 +32,7 @@ public class Algoritmo extends Ecuacion
         int n = 1;
         super.listaIteraciones = new ArrayList<>();
 
-        while (this.error > 0.0001)
+        while (this.error > errorU)
         {
             this.fx = redondear(derivar.evaluarfuncionOriginal(xi));
             this.fxp = redondear(derivar.evaluarfuncionDerivada(xi));
@@ -46,7 +43,6 @@ public class Algoritmo extends Ecuacion
             String[] datos = new String[]{n + "", this.xi + "", this.fx + "", this.fxp + "", this.xi1 + "", errorPorcentaje + "%"};
 
             listaIteraciones.add(datos);
-            //listaIteraciones.add(new Object[]{n, this.xi, this.fx, this.fxp, this.xi1, errorPorcentaje+" %"});
             this.xi = this.xi1;
             n++;
         }
@@ -55,6 +51,7 @@ public class Algoritmo extends Ecuacion
     public void valoresParametro(Double[] valores)
     {
         this.xi = valores[0];
+        this.errorU = valores[1];
         derivar.setFun(super.funcion);
         derivar.derivar();
     }
@@ -63,5 +60,7 @@ public class Algoritmo extends Ecuacion
     {
         return this.xi;
     }
+
+    public double obtenerErrorU(){return this.errorU;}
 }
 

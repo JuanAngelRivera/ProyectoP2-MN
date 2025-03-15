@@ -9,14 +9,29 @@ import com.example.proyecto2pmn.Ecuacion;
 public class Algoritmo extends Ecuacion
 {
     public String fun1, fun2, fun1dx, fun1dy, fun2dx, fun2dy;
-    Double x0, y0;
+    public Double xi, yi, errorU, xi1, yi1;
     Derivar f1, f2;
+
+    public String valorxi1 ()
+    {
+        return String.valueOf(xi1);
+    }
+
+    public String valoryi1()
+    {
+        return String.valueOf(yi1);
+    }
     public void setFun(String ecuacion1, String ecuacion2)
     {
+        if (ecuacion1.contains("=")) {
+            ecuacion1 = ecuacion1.substring(ecuacion1.indexOf("=") + 1).trim(); // Toma solo la parte derecha
+        }
+
         fun1 = ecuacion1;
         fun2 = ecuacion2;
         System.out.println("Fun1: " + fun1);
         System.out.println("Fun2: " + fun2);
+
         f1 = new Derivar();
         f1.setFun(fun1);
         f1.derivar();
@@ -32,8 +47,6 @@ public class Algoritmo extends Ecuacion
 
     public void calcularIteraciones()
     {
-        Scanner sc = new Scanner(System.in);
-
         try
         {
             String p = "Python311\\python.exe";
@@ -68,21 +81,11 @@ public class Algoritmo extends Ecuacion
             e.printStackTrace();
         }
 
-        System.out.println("Digite el valor que le gustaria iniciar en x");
-        double xi = sc.nextDouble();
-        System.out.println("Digite el valor que le gustaria inicar en y");
-        double yi = sc.nextDouble();
+        double errorx = 100.0;
+        double errory = 100.0;
+        int n = 1;
 
-        System.out.println("Digite el error que le gustaria  manejar en porcentaje");
-        double error = sc.nextDouble();
-
-        double errorx=100.0;
-        double errory=100.0;
-        int n=1;
-        String s="----------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
-              s+="|No        |xi        |yi        |f1        |f2        |df1/dx    |df1/dy    |df2/dx    |df2/dy    |inx       |iny       |xi+1      |yi+1      |errorx    |errory    |\n";
-              s+="----------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
-        while(errorx > error && errory > error)
+        while(errorx > errorU && errory > errorU)
         {
             double fxy1= Double.parseDouble(String.format("%.6f",f1.evaluarfuncionOriginal(xi,yi)));
             double df1x= Double.parseDouble(String.format("%.6f",f1.evaluarfuncionDerivadax(xi,yi)));
@@ -96,8 +99,8 @@ public class Algoritmo extends Ecuacion
             double increy = ( fxy1 * df2x - fxy2 * df1x) / (df1x * df2y - df1y * df2x);
             increx = Double.parseDouble(String.format("%.6f",increx));
             increy = Double.parseDouble(String.format("%.6f",increy));
-            double xi1= xi+increx;
-            double yi1= yi+increy;
+             xi1= xi+increx;
+             yi1= yi+increy;
             xi1= Double.parseDouble(String.format("%.6f",xi1));
             yi1= Double.parseDouble(String.format("%.6f",yi1));
 
@@ -107,15 +110,14 @@ public class Algoritmo extends Ecuacion
             errorx= Double.parseDouble(String.format("%.6f",errorx));
             errory= Double.parseDouble(String.format("%.6f",errory));
 
-            s+=String.format("|%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|",n,xi,yi,fxy1,fxy2,df1x,df1y,df2x,df2y,increx,increy,xi1,yi1,errorx,errory)+"\n";
+            String datos [] = new String[]{n + "", xi + "", yi + "", fxy1 + "", fxy2 + "", df1x + "", df1y + "", df2x + "",
+            df2y + "", increx + "", increy + "", xi1 + "", yi1 + "", errorx + "", errory + ""};
 
-            xi=xi1;
-            yi=yi1;
+            listaIteraciones.add(datos);
+            xi = xi1;
+            yi = yi1;
             n++;
         }
-        s+="----------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
-        s+= "Con un error de: "+error+"%\nLos resultados son: \nx= "+xi+"\ny= "+yi+"\n";
-        System.out.println(s+"\n");
     }
 
     public Algoritmo()
@@ -123,7 +125,7 @@ public class Algoritmo extends Ecuacion
         super.titulo = "Newton-Rhapson Multivariable";
         super.descripcion = "Descripcion NRM";
         super.listaIteraciones = new ArrayList<>();
-        super.parametros(new String[]{"x0", "y0"});
+        super.parametros(new String[]{"x0", "y0", "error permitido"});
         super.columnasTabla = new ArrayList<>(Arrays.asList("No.", "xi", "yi", "fxy1", "fxy2", "df1x", "df1y", "df2x",
                 "df2y", "increx", "increy", "xi1", "yi1", "errorx", "errory"));
     }
@@ -135,9 +137,16 @@ public class Algoritmo extends Ecuacion
     }
 
     @Override
+    public double obtenerErrorU()
+    {
+        return errorU;
+    }
+
+    @Override
     public void valoresParametro(Double[] parametros)
     {
-        x0 = parametros[0];
-        y0 = parametros[1];
+        xi = parametros[0];
+        yi = parametros[1];
+        errorU = parametros[2];
     }
 }
