@@ -35,6 +35,8 @@ public class Interfaz extends Stage
         descripcion = new Label(metodo.descripcion);
         descripcion.setWrapText(true);
         ImageView imagen = new ImageView(metodo.imagen);
+        imagen.setFitHeight(100);
+        imagen.setFitWidth(100);
         hboxDescripcion = new HBox(descripcion, imagen);
         vbox = new VBox(titulo, hboxDescripcion);
         switch (metodo.titulo)
@@ -43,6 +45,7 @@ public class Interfaz extends Stage
                 GaussJordanUI((com.example.proyecto2pmn.GaussJordan.Algoritmo) metodo);
                 break;
             case "Gauss-Seidel":
+                GuassSeidelUI(metodo);
                 break;
             case "Newton-Rhapson Multivariable":
                 newtonRhapsonMultivariableUI((Algoritmo) metodo);
@@ -52,6 +55,11 @@ public class Interfaz extends Stage
                 break;
         }
         escena = new Scene(vbox);
+    }
+
+    private void GuassSeidelUI(Ecuacion metodo)
+    {
+
     }
 
     private void GaussJordanUI(com.example.proyecto2pmn.GaussJordan.Algoritmo metodo)

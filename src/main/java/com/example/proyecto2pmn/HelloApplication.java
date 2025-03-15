@@ -31,7 +31,7 @@ public class HelloApplication extends Application
         gaussJordan.setOnAction(e -> new Interfaz(new com.example.proyecto2pmn.GaussJordan.Algoritmo()));
 
         gaussSeidel = new MenuItem("Gauss Seidel");
-        //gaussSeidel.setOnAction(e -> new Interfaz(new Ecuacion()));
+        gaussSeidel.setOnAction(e -> new Interfaz(new com.example.proyecto2pmn.GaussSeidel.Algoritmo()));
 
         gaussJordanMV = new MenuItem("Gauss Jordan Multivariable");
         gaussJordanMV.setOnAction(event -> new Interfaz(new Algoritmo()));

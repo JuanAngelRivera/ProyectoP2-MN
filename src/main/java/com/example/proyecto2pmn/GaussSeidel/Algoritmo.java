@@ -4,7 +4,7 @@ import com.example.proyecto2pmn.Ecuacion;
 
 public class Algoritmo extends Ecuacion
 {
-    Algoritmo()
+    public Algoritmo()
     {
         super("Gauss-Seidel");
         super.descripcion = "El método de Gauss-Seidel es un método iterativo para resolver sistemas de ecuaciones lineales, especialmente útil cuando se tienen sistemas grandes y dispersos.\n" +
