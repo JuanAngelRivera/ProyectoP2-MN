@@ -1,0 +1,48 @@
+.root
+{
+    -fx-background-color: #FBFFE4;
+    -fx-text-fill: #3D8D7A;
+}
+.text-field
+{
+    -fx-background-color: #A3D1C6;
+    -fx-border-radius: 3;
+    -fx-text-fill: #3D8D7A;
+    -fx-text-alignment: center;
+    -fx-font-size: 16pt;
+}
+.text-field:hover
+{
+    -fx-background-color: #B3D8A8;
+}
+.button
+{
+    -fx-background-color: #B3D8A8;
+    -fx-border-color: transparent;
+    -fx-text-fill: #3D8D7A;
+    -fx-text-alignment: center;
+    -fx-font-size: 16pt;
+}
+.button:hover
+{
+    -fx-background-color: #A3D1C6;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-effect: dropshadow(gaussian, #e3d3bf, 10, .5, 5, 5);
+}
+.label
+{
+    -fx-text-fill: #3D8D7A;
+    -fx-font-size: 12pt;
+    -fx-font-family: Arial;
+}
+#descripcion
+{
+    -fx-border-color: #3D8D7A;
+    -fx-border-width: 10px;
+    -fx-border-radius: 5px;
+}
+#titulo
+{
+    -fx-font-weight: bold;
+}

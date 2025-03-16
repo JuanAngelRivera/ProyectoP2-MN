@@ -1,6 +1,8 @@
 package com.example.proyecto2pmn;
 
 import com.example.proyecto2pmn.NRmultivariable.Algoritmo;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
@@ -32,13 +34,22 @@ public class Interfaz extends Stage
     private void crearUI(Ecuacion metodo)
     {
         titulo = new Label("Método " + metodo.titulo);
+        titulo.setId("titulo");
         descripcion = new Label(metodo.descripcion);
         descripcion.setWrapText(true);
+        VBox vboxTitulo = new VBox(titulo, descripcion);
         ImageView imagen = new ImageView(metodo.imagen);
-        imagen.setFitHeight(100);
-        imagen.setFitWidth(100);
-        hboxDescripcion = new HBox(descripcion, imagen);
-        vbox = new VBox(titulo, hboxDescripcion);
+        imagen.setFitHeight(150);
+        imagen.preserveRatioProperty().set(true);
+        hboxDescripcion = new HBox(vboxTitulo, imagen);
+        hboxDescripcion.setPadding(new Insets(10, 10, 10, 10));
+        hboxDescripcion.setSpacing(10);
+        hboxDescripcion.setAlignment(Pos.CENTER);
+        hboxDescripcion.setId("descripcion");
+        vbox = new VBox(hboxDescripcion);
+        vbox.setPadding(new Insets(10, 10, 10, 10));
+        vbox.setSpacing(10);
+        vbox.setAlignment(Pos.TOP_CENTER);
         switch (metodo.titulo)
         {
             case "Gauss-Jordan":
@@ -55,6 +66,7 @@ public class Interfaz extends Stage
                 break;
         }
         escena = new Scene(vbox);
+        escena.getStylesheets().add(getClass().getResource("/css/interfaces.css").toExternalForm());
     }
 
     private void GuassSeidelUI(Ecuacion metodo)
