@@ -56,7 +56,7 @@ public class Interfaz extends Stage
                 GaussJordanUI((com.example.proyecto2pmn.GaussJordan.Algoritmo) metodo);
                 break;
             case "Gauss-Seidel":
-                GuassSeidelUI(metodo);
+                GuassSeidelUI((com.example.proyecto2pmn.GaussSeidel.Algoritmo) metodo);
                 break;
             case "Newton-Rhapson Multivariable":
                 newtonRhapsonMultivariableUI((Algoritmo) metodo);
@@ -69,9 +69,74 @@ public class Interfaz extends Stage
         escena.getStylesheets().add(getClass().getResource("/css/interfaces.css").toExternalForm());
     }
 
-    private void GuassSeidelUI(Ecuacion metodo)
+    private void GuassSeidelUI(com.example.proyecto2pmn.GaussSeidel.Algoritmo metodo)
     {
+        TextField txtEcuaciones = new TextField("Introduce el número de ecuaciones");
+        Button buttonEcuaciones = new Button("OK");
+        vbox.getChildren().addAll(txtEcuaciones, buttonEcuaciones);
+        buttonEcuaciones.setOnAction(e -> {
+            TextField txtVariables = new TextField("Introduce el numero de variables");
+            Button buttonVariables = new Button("OK");
+            vbox.getChildren().addAll(txtVariables, buttonVariables);
+            metodo.a_numbFunc = Integer.parseInt(txtEcuaciones.getText());
+            buttonVariables.setOnAction(event -> {
+                metodo.a_numbCoefficient = Integer.parseInt(txtVariables.getText());
+                metodo.a_functions = new String[metodo.a_numbFunc];
+                GridPane grid = metodo.crearGridPane();
+                Button buttonParametros = new Button("Obtener solución");
 
+                buttonParametros.setOnAction(event1 -> {
+                    Map <Integer, StringBuilder> valores = new HashMap<>();
+
+                    for(Node node : grid.getChildren())
+                    {
+                        if (node instanceof TextField)
+                        {
+                            TextField tf = (TextField) node;
+                            Integer renglon = GridPane.getRowIndex(node);
+                            Integer columna = GridPane.getColumnIndex(node);
+
+                            renglon = (renglon == null) ? 0: renglon;
+                            columna = (columna == null) ? 0: columna;
+
+                            if(renglon == 0 || columna == 0)
+                                continue;
+                            if(columna == grid.getColumnCount() - 1)
+                            {
+                                System.out.println(columna);
+                                String valor = tf.getText().trim();
+                                valor = "=" + valor;
+                                valores.putIfAbsent(renglon, new StringBuilder());
+                                valores.get(renglon).append(valor);
+                                continue;
+                            }
+
+                            String valor = tf.getText().trim();
+
+                            if (!valor.isEmpty() && !valor.startsWith("-"))
+                                valor = "+" + valor;
+
+                            valores.putIfAbsent(renglon, new StringBuilder());
+                            valores.get(renglon).append(valor + "x" + columna);
+                        }
+                    }
+                    List<String> renglonesConcatenados = new ArrayList<>();
+                    valores.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(entry ->
+                            renglonesConcatenados.add(entry.getValue().toString()));
+                    for (int i = 0; i < metodo.a_functions.length; i++)
+                    {
+                        metodo.a_functions[i] = renglonesConcatenados.get(i);
+                    }
+                    metodo.calcularIteraciones();
+                    for (int i = 0; i < metodo.resultados.size(); i++)
+                    {
+                        Label label = new Label(metodo.resultados.get(i));
+                        vbox.getChildren().add(label);
+                    }
+                });
+                vbox.getChildren().addAll(grid, buttonParametros);
+            });
+        });
     }
 
     private void GaussJordanUI(com.example.proyecto2pmn.GaussJordan.Algoritmo metodo)

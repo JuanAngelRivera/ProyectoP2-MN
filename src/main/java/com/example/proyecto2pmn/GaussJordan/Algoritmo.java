@@ -53,6 +53,7 @@ public class Algoritmo extends Ecuacion
         m_concFunction();
 
     }
+
     void m_concFunction()
     {
         estado = "";
@@ -160,10 +161,6 @@ public class Algoritmo extends Ecuacion
         }
     }
 
-    /**
-     * Computes a basis for the null space of matrix A (i.e. solutions of A*x = 0)
-     * using a simple Gaussian elimination algorithm to obtain the reduced row echelon form.
-     */
     public static double[][] computeNullSpace(RealMatrix A)
     {
         // Work on a copy of A's data.
@@ -257,7 +254,6 @@ public class Algoritmo extends Ecuacion
             return nullSpace;
     }
 
-    // Helper method: makes a deep copy of a 2D array.
     public static double[][] copyMatrix(double[][] original)
     {
         int m = original.length;
@@ -270,7 +266,6 @@ public class Algoritmo extends Ecuacion
         return copy;
     }
 
-    // Helper method: formats coefficients to avoid long decimals.
     private static String formatCoefficient(double x)
     {
         double tol = 1e-6;
