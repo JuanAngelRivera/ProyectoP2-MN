@@ -82,59 +82,78 @@ public class Interfaz extends Stage
             buttonVariables.setOnAction(event -> {
                 metodo.a_numbCoefficient = Integer.parseInt(txtVariables.getText());
                 metodo.a_functions = new String[metodo.a_numbFunc];
+                String [] nombreVariables = new String[metodo.a_numbCoefficient];
+                for (int i = 0; i < metodo.a_numbCoefficient; i++)
+                {
+                    nombreVariables[i] = "x" + (i + 1);
+                }
+                metodo.cargarColumnasVariables(nombreVariables);
                 GridPane grid = metodo.crearGridPane();
-                Button buttonParametros = new Button("Obtener solución");
+                Label labelE = new Label("Error permitido: ");
+                TextField tfE = new TextField("Error%");
+                HBox hboxE = new HBox(labelE, tfE);
+                vbox.getChildren().add(hboxE);
+                textFieldParametros.add(tfE);
+                hboxParametros.add(hboxE);
+                buttonParametros = new Button("Calcular resultado");
+                vbox.getChildren().addAll(grid, buttonParametros);
 
-                buttonParametros.setOnAction(event1 -> {
-                    Map <Integer, StringBuilder> valores = new HashMap<>();
-
-                    for(Node node : grid.getChildren())
+                buttonParametros.setOnAction(eve ->
+                {
+                    try
                     {
-                        if (node instanceof TextField)
+                        Map <Integer, StringBuilder> valores = new HashMap<>();
+
+                        for(Node node : grid.getChildren())
                         {
-                            TextField tf = (TextField) node;
-                            Integer renglon = GridPane.getRowIndex(node);
-                            Integer columna = GridPane.getColumnIndex(node);
-
-                            renglon = (renglon == null) ? 0: renglon;
-                            columna = (columna == null) ? 0: columna;
-
-                            if(renglon == 0 || columna == 0)
-                                continue;
-                            if(columna == grid.getColumnCount() - 1)
+                            if (node instanceof TextField)
                             {
-                                System.out.println(columna);
+                                TextField tf = (TextField) node;
+                                Integer renglon = GridPane.getRowIndex(node);
+                                Integer columna = GridPane.getColumnIndex(node);
+
+                                renglon = (renglon == null) ? 0: renglon;
+                                columna = (columna == null) ? 0: columna;
+
+                                if(renglon == 0 || columna == 0)
+                                    continue;
+                                if(columna == grid.getColumnCount() - 1)
+                                {
+                                    System.out.println(columna);
+                                    String valor = tf.getText().trim();
+                                    valor = "=" + valor;
+                                    valores.putIfAbsent(renglon, new StringBuilder());
+                                    valores.get(renglon).append(valor);
+                                    continue;
+                                }
+
                                 String valor = tf.getText().trim();
-                                valor = "=" + valor;
+
+                                if (!valor.isEmpty() && !valor.startsWith("-"))
+                                    valor = "+" + valor;
+
                                 valores.putIfAbsent(renglon, new StringBuilder());
-                                valores.get(renglon).append(valor);
-                                continue;
+                                valores.get(renglon).append(valor + "x" + columna);
                             }
-
-                            String valor = tf.getText().trim();
-
-                            if (!valor.isEmpty() && !valor.startsWith("-"))
-                                valor = "+" + valor;
-
-                            valores.putIfAbsent(renglon, new StringBuilder());
-                            valores.get(renglon).append(valor + "x" + columna);
                         }
+                        List<String> renglonesConcatenados = new ArrayList<>();
+                        valores.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(entry ->
+                                renglonesConcatenados.add(entry.getValue().toString()));
+                        for (int i = 0; i < metodo.a_functions.length; i++)
+                        {
+                            metodo.a_functions[i] = renglonesConcatenados.get(i);
+                        }
+
+                        metodo.errorU = Double.parseDouble(tfE.getText());
+                        metodo.calcularIteraciones();
+                        new Tabla(metodo);
                     }
-                    List<String> renglonesConcatenados = new ArrayList<>();
-                    valores.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(entry ->
-                            renglonesConcatenados.add(entry.getValue().toString()));
-                    for (int i = 0; i < metodo.a_functions.length; i++)
+                    catch (Exception ex)
                     {
-                        metodo.a_functions[i] = renglonesConcatenados.get(i);
-                    }
-                    metodo.calcularIteraciones();
-                    for (int i = 0; i < metodo.resultados.size(); i++)
-                    {
-                        Label label = new Label(metodo.resultados.get(i));
-                        vbox.getChildren().add(label);
+                        new VentanaError("Introduce solo valores numéricos");
+                        ex.printStackTrace();
                     }
                 });
-                vbox.getChildren().addAll(grid, buttonParametros);
             });
         });
     }

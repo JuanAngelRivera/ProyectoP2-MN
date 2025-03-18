@@ -5,19 +5,24 @@ import com.example.proyecto2pmn.VentanaError;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import jdk.swing.interop.SwingInterOpUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static java.lang.Math.abs;
 
 public class Algoritmo extends Ecuacion
 {
     public int a_numbFunc, a_numbCoefficient;
+    public static String estado;
     public String a_functions [];
-    public double a_coefficients [][];
+    public double a_coefficients [][], matrizError[][];
     public double a_constants [], a_numbIndep[];
-    public double a_error;
-    public static ArrayList<String> resultados;
+    public double errorU;
+    public static ArrayList<String> resultados, variables;
     boolean flag =true;
 
     public Algoritmo()
@@ -26,6 +31,7 @@ public class Algoritmo extends Ecuacion
         super.descripcion = "El método de Gauss-Seidel es un método iterativo para resolver sistemas de ecuaciones lineales, especialmente útil cuando se tienen sistemas grandes y dispersos.\n" +
                 "Fue publicado en 1823 por Carl Friedrich Gauss, aunque el método tal como se conoce fue desarrollado por Philipp Ludwig von Seidel en 1874, quien refinó el procedimiento de Gauss. En este método, las soluciones se actualizan inmediatamente a medida que se calculan, lo que mejora la convergencia bajo ciertas condiciones (matrices diagonalmente dominantes o positivas definidas).";
         super.listaIteraciones = new ArrayList<>();
+        super.parametros(new String[]{"Error permitido: "});
     }
 
     @Override
@@ -37,7 +43,23 @@ public class Algoritmo extends Ecuacion
     @Override
     public double obtenerErrorU()
     {
-        return 0;
+        return errorU;
+    }
+
+    public void cargarColumnasVariables(String [] datos)
+    {
+        variables = new ArrayList<>();
+        variables.add("No.");
+        variables.addAll(Arrays.asList(datos));
+        for (int i = 0; i < datos.length; i++)
+        {
+            variables.add("x" + (i + 1) + "N");
+        }
+        for (int i = 0; i < datos.length; i++)
+        {
+            variables.add("e" + (i + 1));
+        }
+        super.columnasTabla = variables;
     }
 
     @Override
@@ -49,7 +71,53 @@ public class Algoritmo extends Ecuacion
     @Override
     public void calcularIteraciones()
     {
-        solveAlgoritm(a_coefficients, a_constants, a_error, a_numbIndep);
+        m_intrData();
+    }
+
+    void m_intrData()
+    {
+        a_coefficients = new double[a_numbFunc][a_numbCoefficient];
+        a_constants = new double[a_numbFunc];
+        a_numbIndep = new double[a_numbFunc];
+        m_concFunction();
+    }
+
+    void m_concFunction()
+    {
+        for (int i = 0; i < a_numbFunc; i++)
+        {
+            System.out.println(a_functions[i]);
+            Pattern pattern = Pattern.compile("([+-]?\\d*(?:\\.\\d+)?)x\\d+");
+            Matcher matcher = pattern.matcher(a_functions[i]);
+            int col = 0;
+            while (matcher.find())
+            {
+                String coeffStr = matcher.group(1);
+                double coefficient;
+                if(coeffStr.isEmpty() || coeffStr.equals("+"))
+                    coefficient = 1;
+                else if(coeffStr.equals("-"))
+                    coefficient = -1;
+                else
+                    coefficient = Double.parseDouble(coeffStr);
+                a_coefficients[i][col++] = coefficient;
+            }
+        }
+
+        for (int i = 0; i < a_functions.length; i++)
+        {
+            String[] parts = a_functions[i].split("=");
+            a_constants[i] = Double.parseDouble(parts[1].trim());
+        }
+        try
+        {
+            solveAlgoritm(a_coefficients, a_constants, errorU, a_numbIndep);
+        }
+        catch (Exception e)
+        {
+            estado = "El sistema no tiene solución";
+            e.printStackTrace();
+        }
     }
 
     public GridPane crearGridPane ()
@@ -103,7 +171,7 @@ public class Algoritmo extends Ecuacion
 
     public void solveAlgoritm(double[][] coef,double[] result,double error,double []indep)
     {
-        int iteraciones = 0;
+        int iteraciones = 1;
         double[][] despeje = new double[coef.length+1][coef[0].length+1];
         double[][] despejeCopy = new double[coef.length+1][coef[0].length+1];
         for (int i = 0; i < coef.length; i++)
@@ -145,15 +213,43 @@ public class Algoritmo extends Ecuacion
         }
 
         mostrarX(despeje);
-        despeje=calcularXn(despeje);
+        despeje = calcularXn(despeje);
         mostrarX(despeje);
 
         while(calcularError(despejeCopy,despeje,error))
         {
+            System.out.println("ITERACION N " + iteraciones);
+            String[] datos = new String[columnasTabla.size()];
+            System.out.println("columnasTabla: " + columnasTabla.size());
+            datos[0] = iteraciones + "";
+
+            for (int i = 0; i < despejeCopy[0].length; i++)
+            {
+                datos[i + 1] = String.valueOf(despejeCopy[despejeCopy.length - 1][i]);
+            }
+            for (int i = 0; i < despeje[0].length; i++)
+            {
+                datos[i + despejeCopy.length] = String.valueOf(despeje[despeje.length - 1][i]);
+            }
+            for (int i = 0; i < matrizError[0].length; i++)
+            {
+                datos[despejeCopy.length + despeje.length + i - 1] = String.valueOf(matrizError[matrizError.length - 1][i]);
+            }
+
+            for(String dato : datos)
+            {
+                System.out.print(dato + " ");
+            }
+            System.out.println();
+
+            listaIteraciones.add(datos);
+
             despejeCopy = calcularXn(despejeCopy);
             despeje = calcularXn(despeje);
             mostrarXn(despejeCopy);
             mostrarXn(despeje);
+
+
             iteraciones++;
 
             if (iteraciones == 200)
@@ -164,6 +260,7 @@ public class Algoritmo extends Ecuacion
         }
         if(iteraciones < 200)
         {
+            System.out.println("METODO MOSTRAR RESULTADO");
             mostrarResultado(despeje);
         }
     }
@@ -241,7 +338,7 @@ public class Algoritmo extends Ecuacion
     //METODO QUE CALCULA EL ERROR
     boolean calcularError(double [][] matrizAnt,double[][] matrizAct ,double error)
     {
-        double[][] matrizError = new double[3][matrizAnt[0].length-1];
+        matrizError = new double[3][matrizAnt[0].length-1];
         boolean nocumple = true;
         int contador = 0;
 

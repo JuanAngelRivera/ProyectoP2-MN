@@ -31,7 +31,7 @@ public class Main
         a_error = Double.parseDouble(sc.nextLine());
         System.out.println("Enter the number of functions you want to perform");
         a_numbFunc = Integer.parseInt(sc.nextLine());
-        a_numbIndep=new double[a_numbFunc];
+        a_numbIndep = new double[a_numbFunc];
 
         for (int i = 0; i < a_numbFunc; i++)
         {

@@ -51,7 +51,6 @@ public class Algoritmo extends Ecuacion
         a_coefficients = new double[a_numbFunc][a_numbCoefficient];
         a_constants = new double[a_numbFunc];
         m_concFunction();
-
     }
 
     void m_concFunction()
@@ -63,23 +62,18 @@ public class Algoritmo extends Ecuacion
             Pattern pattern = Pattern.compile("(-?\\d*)x\\d+");
             Matcher matcher = pattern.matcher(a_functions[i]);
             int col = 0;
-            while (matcher.find()) {
+            while (matcher.find())
+            {
                 String coeffStr = matcher.group(1);
                 double coefficient = coeffStr.isEmpty() || coeffStr.equals("+") ? 1 : coeffStr.equals("-") ? -1 : Integer.parseInt(coeffStr);
                 a_coefficients[i][col++] = coefficient;
-                //System.out.println("Coefficient "+coefficient);
             }
         }
 
-
-        System.out.println(a_functions[0]);
-        System.out.println(a_functions[1]);
-        System.out.println(a_functions[2]);
         for (int i = 0; i < a_functions.length; i++)
         {
             String[] parts = a_functions[i].split("=");
             a_constants[i] = Double.parseDouble(parts[1].trim());
-            //System.out.println(a_constants[i]);// Right side is the constant term
         }
         try
         {
@@ -89,9 +83,7 @@ public class Algoritmo extends Ecuacion
         catch (Exception e)
         {
             estado = "El sistema no tiene solución";
-
         }
-
     }
 
     public static void m_solveAndPrintSolution(double[][] coefficients, double[] constants)
