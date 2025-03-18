@@ -174,6 +174,7 @@ public class Algoritmo extends Ecuacion
         int iteraciones = 1;
         double[][] despeje = new double[coef.length+1][coef[0].length+1];
         double[][] despejeCopy = new double[coef.length+1][coef[0].length+1];
+
         for (int i = 0; i < coef.length; i++)
         {
             for (int j = 0; j < coef[0].length; j++)
@@ -211,10 +212,7 @@ public class Algoritmo extends Ecuacion
         {
             despeje[despeje.length-1][i] = Double.parseDouble(String.format("%.6f", indep[i]));
         }
-
-        mostrarX(despeje);
         despeje = calcularXn(despeje);
-        mostrarX(despeje);
 
         while(calcularError(despejeCopy,despeje,error))
         {
@@ -235,21 +233,10 @@ public class Algoritmo extends Ecuacion
             {
                 datos[despejeCopy.length + despeje.length + i - 1] = String.valueOf(matrizError[matrizError.length - 1][i]);
             }
-
-            for(String dato : datos)
-            {
-                System.out.print(dato + " ");
-            }
-            System.out.println();
-
             listaIteraciones.add(datos);
 
             despejeCopy = calcularXn(despejeCopy);
             despeje = calcularXn(despeje);
-            mostrarXn(despejeCopy);
-            mostrarXn(despeje);
-
-
             iteraciones++;
 
             if (iteraciones == 200)
@@ -257,52 +244,6 @@ public class Algoritmo extends Ecuacion
                 new VentanaError("No existe convergencia!");
                 break;
             }
-        }
-        if(iteraciones < 200)
-        {
-            System.out.println("METODO MOSTRAR RESULTADO");
-            mostrarResultado(despeje);
-        }
-    }
-
-    public void mostrar(double [][] matriz)
-    {
-        for (int i = 0; i < matriz.length; i++)
-        {
-            for (int j = 0; j < matriz[i].length; j++)
-            {
-                System.out.print(matriz[i][j]+" ");
-            }
-            System.out.println();
-        }
-    }
-
-    //METODO QUE ME MOSTRARA EN CONSOLA SOLO EL ULTIMO RENGLON QUE ALMACENA MATRIZ DE ERROR
-    public void mostrarX(double[][] matriz)
-    {
-        int i=matriz.length-1;
-        for (int j = 0; j < matriz[0].length; j++)
-        {
-            System.out.print(matriz[i][j]+" ");
-        }
-    }
-    //METODO QUE ME MOSTRARA EN CONSOLA SOLO EL ULTIMO RENFLON QUE ALMACENA MATRIZ DESPEJE Y COPIA
-    public void mostrarXn(double[][] matriz)
-    {
-        int i=matriz.length-1;
-        for (int j = 0; j < matriz[0].length-1; j++)
-        {
-            System.out.print(matriz[i][j]+" ");
-        }
-
-    }
-    //METODO MUESTRA RESULTADO
-    public void mostrarResultado(double[][] matriz)
-    {
-        int i=matriz.length-1;
-        for (int j = 0; j < matriz[0].length-1; j++)
-        {
-            System.out.print("x"+(j+1)+"= "+matriz[i][j]+" ");
         }
     }
 
@@ -351,10 +292,6 @@ public class Algoritmo extends Ecuacion
         {
             matrizError[2][i] = Double.parseDouble(String.format("%.6f",abs(((matrizError[1][i] - matrizError[0][i]) / matrizError[1][i]) * 100)));
         }
-
-        //System.out.print("MATRIZ ERROR: ");
-        mostrarX(matrizError);
-        System.out.println();
 
         for (int i = 0; i < matrizError[0].length; i++)
         {
