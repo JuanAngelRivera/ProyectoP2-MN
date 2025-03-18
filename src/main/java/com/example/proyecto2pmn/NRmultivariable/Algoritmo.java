@@ -47,9 +47,9 @@ public class Algoritmo extends Ecuacion
 
     public void calcularIteraciones()
     {
-        try
+        /*try
         {
-            String p = "Python311\\python.exe";
+            /*String p = "Python311\\python.exe";
             ProcessBuilder pb = new ProcessBuilder(p, "main.py", fun1, "y");
             pb.redirectErrorStream(true);
             Process process = pb.start();
@@ -79,7 +79,7 @@ public class Algoritmo extends Ecuacion
         catch (Exception e)
         {
             e.printStackTrace();
-        }
+        }*/
 
         double errorx = 100.0;
         double errory = 100.0;
