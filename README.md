@@ -8,19 +8,29 @@
 - [x] Algoritmo Regla Falsa
 - [x] Algoritmo Newton-Rhapson
 - [x] Algoritmo Gauss-Jordan
-- [ ] Algoritmo Gauss-Seidel
+- [x] Algoritmo Gauss-Seidel
 - [x] Algoritmo Gauss-Jordan Multivariable
-- [ ] Adaptacion Regla Falsa
+- [ ] Algoritmo regresion lineal
+- [ ] Algoritmo regresion lineal multiple
+- [x] Adaptacion Regla Falsa
 - [x] Adaptacion Newton-Rhapson
 - [x] Adaptacion Gauss-Jordan
-- [ ] Adaptacion Gauss-Seidel
-- [ ] Adaptacion Gauss-Jordan Multivariable
-- [ ] Generar interfaces
+- [x] Adaptacion Gauss-Seidel
+- [x] Adaptacion Gauss-Jordan Multivariable
+- [ ] Adaptacion regresion lineal
+- [ ] Adaptacion regresion lineal multiple
+- [x] Generar interfaces
 - [x] Crear tablas (ObservableList)
-- [ ] Exportar archivo ejecutable
-- [ ] Traductor para JEP
+- [x] Exportar archivo ejecutable
+- [x] Traductor para JEP
 - [ ] Teclado de funciones
-
+- [ ] Actualizar interfaz main (añadir ItemMenus y boton para salir del programa)
+- [ ] Actualizar interfaces generales (boton de ayuda, boton limpiar cajas de texto,
+boton para regresar a la pantalla de inicio)
+- [ ] Mejoras de calidad de la aplicacion
+- [ ] Verificaciones de errores en el sistema
+- [ ] Modificar para que todo funcione dentro de la misma ventana (En lugar de Stages se van a usar Scenes)
+- [ ] Meter las tablas dentro de la misma scene, no como otro Stage
 
 ## Requerimientos del programa
 - [x] Gráfica de la función
@@ -46,5 +56,5 @@ git push origin main
 ```
 Para descargar lo que hay en GitHub
 ```bash
-git pull origin main
+git pull --rebase origin main
 ```
