@@ -14,8 +14,9 @@ import java.io.IOException;
 public class HelloApplication extends Application
 {
     private MenuBar menu;
-    private Menu ecuaciones, abiertos, cerrados, lineales, extra;
-    private MenuItem reglaFalsa, newtonRhapson, gaussJordan, gaussSeidel, gaussJordanMV, info;
+    private Menu ecuaciones, abiertos, cerrados, lineales, extra, regresion;
+    private MenuItem reglaFalsa, newtonRhapson, gaussJordan, gaussSeidel, gaussJordanMV, info, regresionLineal,
+            regresionLinealMultiple;
     private VBox vbox;
     private Scene escena;
 
@@ -36,23 +37,29 @@ public class HelloApplication extends Application
         gaussJordanMV = new MenuItem("Gauss Jordan Multivariable");
         gaussJordanMV.setOnAction(event -> new Interfaz(new Algoritmo()));
 
+        regresionLineal = new MenuItem("Regresion Lineal");
+        //regresionLineal.setOnAction(event -> );
+        regresionLinealMultiple = new MenuItem("Regresion Lineal Multiple");
+        //regresionLinealMultiple.setOnAction(event -> );
+
+        info = new MenuItem("Autores del programa");
+        info.setOnAction(event -> new Info());
+
         abiertos = new Menu("Abiertos");
         abiertos.getItems().addAll(newtonRhapson);
         cerrados = new Menu("Cerrados");
         cerrados.getItems().addAll(reglaFalsa);
         lineales = new Menu("Lineales");
         lineales.getItems().addAll(gaussJordan, gaussSeidel, gaussJordanMV);
-
-        info = new MenuItem("Autores del programa");
-        info.setOnAction(event -> new Info());
+        regresion = new Menu("Regresion");
+        regresion.getItems().addAll(regresionLineal, regresionLinealMultiple);
         extra = new Menu("Acerca del programa");
         extra.getItems().addAll(info);
-
         ecuaciones = new Menu("Ecuaciones");
-
         ecuaciones.getItems().addAll(abiertos, cerrados, lineales);
+
         menu = new MenuBar();
-        menu.getMenus().addAll(ecuaciones, extra);
+        menu.getMenus().addAll(ecuaciones, regresion, extra);
         vbox = new VBox(menu);
         escena = new Scene(vbox);
         escena.getStylesheets().add(getClass().getResource("/css/general.css").toExternalForm());
