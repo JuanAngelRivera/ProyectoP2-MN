@@ -5,8 +5,6 @@ import com.example.proyecto2pmn.VentanaError;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import jdk.swing.interop.SwingInterOpUtils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Matcher;
