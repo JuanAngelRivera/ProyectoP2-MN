@@ -24,13 +24,14 @@
 - [x] Exportar archivo ejecutable
 - [x] Traductor para JEP
 - [ ] Teclado de funciones
-- [ ] Actualizar interfaz main (añadir ItemMenus y boton para salir del programa)
+- [x] Actualizar interfaz main (añadir ItemMenus y boton para salir del programa)
 - [ ] Actualizar interfaces generales (boton de ayuda, boton limpiar cajas de texto,
 boton para regresar a la pantalla de inicio)
 - [ ] Mejoras de calidad de la aplicacion
 - [ ] Verificaciones de errores en el sistema
 - [ ] Modificar para que todo funcione dentro de la misma ventana (En lugar de Stages se van a usar Scenes)
 - [ ] Meter las tablas dentro de la misma scene, no como otro Stage
+- [x] Correccion Acerca del programa -> Autores del programa
 
 ## Requerimientos del programa
 - [x] Gráfica de la función
