@@ -6,15 +6,12 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,15 +26,29 @@ public class Interfaz extends Stage
     private Scene escena;
     private List<TextField> textFieldParametros;
     private List<HBox> hboxParametros;
-    private Button buttonParametros;
+    private Button buttonParametros, limpiar, regresar;
+    private ToolBar toolBar;
+    private MenuButton ayuda;
 
     private void crearUI(Ecuacion metodo)
     {
+        ayuda = new MenuButton("Ayuda");
+        ayuda.setOnAction(event -> {});
+
+        limpiar = new Button("Limpiar");
+        limpiar.setOnAction(event -> {});
+
+        regresar = new Button("Regresar");
+        regresar.setOnAction(event -> {});
+
+        toolBar = new ToolBar();
+        toolBar.getItems().addAll(ayuda, limpiar, regresar);
+
         titulo = new Label("Método " + metodo.titulo);
         titulo.setId("titulo");
         descripcion = new Label(metodo.descripcion);
         descripcion.setWrapText(true);
-        VBox vboxTitulo = new VBox(titulo, descripcion);
+        VBox vboxTitulo = new VBox(titulo);
         ImageView imagen = new ImageView(metodo.imagen);
         imagen.setFitHeight(150);
         imagen.preserveRatioProperty().set(true);
@@ -46,7 +57,7 @@ public class Interfaz extends Stage
         hboxDescripcion.setSpacing(10);
         hboxDescripcion.setAlignment(Pos.CENTER);
         hboxDescripcion.setId("descripcion");
-        vbox = new VBox(hboxDescripcion);
+        vbox = new VBox(toolBar, hboxDescripcion);
         vbox.setPadding(new Insets(10, 10, 10, 10));
         vbox.setSpacing(10);
         vbox.setAlignment(Pos.TOP_CENTER);
