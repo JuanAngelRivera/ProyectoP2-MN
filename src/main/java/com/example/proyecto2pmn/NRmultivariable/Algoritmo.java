@@ -47,40 +47,6 @@ public class Algoritmo extends Ecuacion
 
     public void calcularIteraciones()
     {
-        /*try
-        {
-            /*String p = "Python311\\python.exe";
-            ProcessBuilder pb = new ProcessBuilder(p, "main.py", fun1, "y");
-            pb.redirectErrorStream(true);
-            Process process = pb.start();
-
-            // Leer la salida del script de Python
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line;
-            while ((line = reader.readLine()) != null)
-            {
-                System.out.println("1) y= : " + line);
-            }
-
-            pb = new ProcessBuilder(p, "main.py", fun2, "y");
-            pb.redirectErrorStream(true);
-            process = pb.start();
-
-            // Leer la salida del script de Python
-            reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line2;
-            while ((line2 = reader.readLine()) != null)
-            {
-                System.out.println("2) y= : " + line2);
-            }
-
-            process.waitFor();  // Espera a que termine el proceso
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }*/
-
         double errorx = 100.0;
         double errory = 100.0;
         int n = 1;
