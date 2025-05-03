@@ -9,6 +9,10 @@ import java.util.ArrayList;
 public class Lineal extends Ecuacion {
     double[] valoresx;
     double[] valoresy;
+    double m;
+    double b;
+    double r;
+    String resultado;
     public static ArrayList<String> variables;
     public Lineal(double[] valoresx, double[] valoresy) {
         super("Regresion lineal");
@@ -54,11 +58,11 @@ public class Lineal extends Ecuacion {
         }
         datos= new String[]{"SUMA",sumax+"",sumay+"",sumaxy+"",sumax2+"",sumay2+""};
         listaIteraciones.add(datos);
-        double m=(valoresx.length*sumaxy-sumax*sumay)/(valoresx.length*sumax2-sumax*sumax);
+        m=(valoresx.length*sumaxy-sumax*sumay)/(valoresx.length*sumax2-sumax*sumax);
         m= Redondear(m);
-        double b=(sumay*sumax2-sumax*sumaxy)/(valoresx.length*sumax2-sumax*sumax);
+        b=(sumay*sumax2-sumax*sumaxy)/(valoresx.length*sumax2-sumax*sumax);
         b=Redondear(b);
-        double r= (valoresx.length*sumaxy-sumax*sumay)/(Math.sqrt((valoresx.length*sumax2-sumax*sumax)*(valoresx.length*sumay2-sumay*sumay)));
+        r= (valoresx.length*sumaxy-sumax*sumay)/(Math.sqrt((valoresx.length*sumax2-sumax*sumax)*(valoresx.length*sumay2-sumay*sumay)));
         r= Redondear(r);
         //resultado+= "m= "+m+"\nb= "+b+"\nr= "+r+"\n";
         //resultado+="y= "+m+"x + "+b;
