@@ -1,6 +1,8 @@
 package com.example.proyecto2pmn;
 
+import com.example.proyecto2pmn.Lineal.Lineal;
 import com.example.proyecto2pmn.NRmultivariable.Algoritmo;
+import com.example.proyecto2pmn.RegresionMultiple.LinealMultiple;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Side;
@@ -44,9 +46,9 @@ public class HelloApplication extends Application
         gaussJordanMV.setOnAction(event -> new Interfaz(new Algoritmo()));
 
         regresionLineal = new MenuItem("Regresion Lineal");
-        //regresionLineal.setOnAction(event -> );
+        regresionLineal.setOnAction(event -> new Interfaz(new Lineal()));
         regresionLinealMultiple = new MenuItem("Regresion Lineal Multiple");
-        //regresionLinealMultiple.setOnAction(event -> );
+        regresionLinealMultiple.setOnAction(event -> new Interfaz(new LinealMultiple()));
 
         info = new MenuItem("Autores del programa");
         create_info();
